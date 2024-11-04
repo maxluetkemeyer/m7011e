@@ -1,3 +1,3 @@
-const hi: number = 4
+const hi: number = 4;
 
-console.log(hi)
+console.log(hi);
