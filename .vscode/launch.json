@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/main.ts",
+            "runtimeArgs": [
+                "--experimental-strip-types"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "name": "Dev",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/main.ts",
+            "runtimeArgs": [
+                "--experimental-strip-types",
+                "--watch"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "name": "Test",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": [
+                "--runInBand"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}

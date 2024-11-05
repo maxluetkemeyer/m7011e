@@ -7,17 +7,29 @@
   "scripts": {
     "run": "node --experimental-strip-types src/main.ts",
     "dev": "node --experimental-strip-types --watch src/main.ts",
-    "test": "todo"
+    "test": "jest"
   },
   "author": "Max Luetkemeyer, Juliana",
   "license": "UNLICENSED",
   "devDependencies": {
     "@eslint/js": "^9.14.0",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.8.7",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.12.0",
+    "jest": "^29.7.0",
     "prettier": "3.3.3",
+    "prisma": "^5.21.1",
+    "ts-jest": "^29.2.5",
     "typescript-eslint": "^8.12.2"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.14.0",
+    "@prisma/client": "^5.21.1",
+    "express": "^4.21.1",
+    "handlebars": "^4.7.8",
+    "jose": "^5.9.6",
+    "otpauth": "^9.3.4"
   }
 }

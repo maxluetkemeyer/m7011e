@@ -12,7 +12,12 @@
 		"vscode": {
 			"extensions": [
 				"GitHub.copilot",
-				"GitHub.copilot-chat"
+				"GitHub.copilot-chat",
+				"cmoog.sqlnotebook",
+				"inferrinizzard.prettier-sql-vscode",
+				"adpyke.vscode-sql-formatter",
+				"Orta.vscode-jest",
+				"ahmadalli.vscode-nginx-conf"
 			]
 		}
 	}
