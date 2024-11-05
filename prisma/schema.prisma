@@ -8,6 +8,52 @@ datasource db {
 }
 
 model user_group {
-  group_id Int     @id @default(autoincrement())
-  name     String?
+  group_id          Int                 @id @default(autoincrement())
+  name              String?
+  user_group_member user_group_member[]
+}
+
+model article {
+  article_id  Int           @id @default(autoincrement())
+  title       String?
+  content     String?
+  created_at  DateTime?     @db.Timestamp(6)
+  updated_at  DateTime?     @db.Timestamp(6)
+  user_id     Int?
+  users       users?        @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  article_tag article_tag[]
+}
+
+model article_tag {
+  article_id Int
+  tag_id     Int
+  article    article @relation(fields: [article_id], references: [article_id], onDelete: NoAction, onUpdate: NoAction)
+  tag        tag     @relation(fields: [tag_id], references: [tag_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([article_id, tag_id])
+}
+
+model tag {
+  tag_id      Int           @id @default(autoincrement())
+  name        String?
+  article_tag article_tag[]
+}
+
+model user_group_member {
+  group_id   Int
+  user_id    Int
+  user_group user_group @relation(fields: [group_id], references: [group_id], onDelete: NoAction, onUpdate: NoAction)
+  users      users      @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([group_id, user_id])
+}
+
+model users {
+  user_id           Int                 @id @default(autoincrement())
+  name              String
+  email             String
+  password_hash     String
+  salt              String
+  article           article[]
+  user_group_member user_group_member[]
 }

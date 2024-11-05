@@ -10,10 +10,11 @@ nvm use 23.1.0
 https://expressjs.com/en/starter/hello-world.html
 https://handlebarsjs.com/guide/#what-is-handlebars
 
+https://blog.shoebpatel.com/2021/01/23/The-Secret-Parameter-LFR-and-Potential-RCE-in-NodeJS-Apps/
 
 
 
-```
+```bash
 npx prisma db pull
 npx prisma generate
 ```
