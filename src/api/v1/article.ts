@@ -25,4 +25,43 @@ router.get("/:id", async (req, res) => {
 	res.json(article);
 });
 
+router.post("/", async (req, res) => {
+	const article = await prisma.article.create({
+		data: {
+			title: req.body.title,
+			content: req.body.content,
+			created_at: new Date(),
+			user_id: req.body.user_id, //TODO: CHECK
+		},
+	});
+
+	res.json(article);
+});
+
+router.put("/:id", async (req, res) => {
+	const article = await prisma.article.update({
+		where: {
+			article_id: parseInt(req.params.id),
+		},
+		data: {
+			title: req.body.title,
+			content: req.body.content,
+			user_id: req.body.user_id, //TODO: CHECK
+			updated_at: new Date(),
+		},
+	});
+
+	res.json(article);
+});
+
+router.delete("/:id", async (req, res) => {
+	const article = await prisma.article.delete({
+		where: {
+			article_id: parseInt(req.params.id),
+		},
+	});
+
+	res.json(article);
+});
+
 export default router;

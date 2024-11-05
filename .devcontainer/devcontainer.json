@@ -21,7 +21,9 @@
 				"esbenp.prettier-vscode",
 				"Prisma.prisma",
 				"YoavBls.pretty-ts-errors",
-				"ms-azuretools.vscode-docker"
+				"ms-azuretools.vscode-docker",
+				"wayou.vscode-todo-highlight",
+				"AnbuselvanRocky.bootstrap5-vscode"
 			]
 		}
 	}

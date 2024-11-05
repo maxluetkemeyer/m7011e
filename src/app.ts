@@ -1,5 +1,5 @@
 import express from "express";
-import routes from "./routes.ts"
+import router from "./routes.ts"
 import api_router from "./api/v1/api_routes.ts";
 import { engine } from "express-handlebars";
 
@@ -10,9 +10,7 @@ app.set("view engine", "handlebars");
 app.set("views", "./src/views/");
 
 app.use("/static", express.static("src/static"));
-
-routes(app)
-
+app.use("/", router);
 app.use("/api/v1", api_router);
 
 // 404 not found

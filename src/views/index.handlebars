@@ -1,3 +1,27 @@
-<p>Lulea Newspaper</p>
-<br />
-<p>{{myVar}}</p>
+<nav class="container border-bottom mb-3">
+	<h1>Lulea Newspaper</h1>
+</nav>
+
+<main class="container">
+	<div class="row">
+		<div class="col">
+			{{#each articles}}
+				<article>
+					<h2>{{this.title}}</h2>
+					<p>{{this.content}}</p>
+					<p>{{this.createdAt}}</p>
+				</article>
+			{{/each}}
+		</div>
+		<div class="col">
+			<p>{{myVar}}</p>
+		</div>
+	</div>
+</main>
+
+<div class="container">
+	<footer class="py-3 my-4 border-top">
+		<p class="text-center text-body-secondary">© 2024 Max Lütkemeyer,
+			Juliana</p>
+	</footer>
+</div>
