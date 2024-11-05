@@ -1,6 +1,9 @@
 import { configure } from "./config.ts";
+import { app } from "./app.ts";
 
 configure();
 
-const hi: number = 4;
-console.log(hi);
+
+app.listen(3000, () => {
+	console.log(`Example app listening on port 3000`);
+});

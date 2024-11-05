@@ -10,6 +10,7 @@ async function main() {
     // })
 
 	const allGroups = await prisma.user_group.findMany()
+	
 	console.log(allGroups);
 }
 
