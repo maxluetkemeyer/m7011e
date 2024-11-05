@@ -17,7 +17,11 @@
 				"inferrinizzard.prettier-sql-vscode",
 				"adpyke.vscode-sql-formatter",
 				"Orta.vscode-jest",
-				"ahmadalli.vscode-nginx-conf"
+				"ahmadalli.vscode-nginx-conf",
+				"esbenp.prettier-vscode",
+				"Prisma.prisma",
+				"YoavBls.pretty-ts-errors",
+				"ms-azuretools.vscode-docker"
 			]
 		}
 	}
