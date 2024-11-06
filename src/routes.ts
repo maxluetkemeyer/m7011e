@@ -14,10 +14,6 @@ router.get("/about", (req, res) => {
 	res.render("about", { myVar: "Hey" });
 });
 
-router.get("/login", (req, res) => {
-	res.render("login", { myVar: "Hey" });
-});
-
 router.get("/dashboard", (req, res) => {
 	res.render("users/dashboard", { myVar: "Hey" });
 });

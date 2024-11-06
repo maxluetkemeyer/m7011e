@@ -12,6 +12,7 @@ const salt = await randomBytesAsync(128);
 // 	console.log(key.toString("hex"));
 // });
 
-const key = (await scryptAsync("password", salt, 512)) as Buffer;
+const key = (await scryptAsync("hello123", salt, 512)) as Buffer;
 
 console.log(key.toString("hex"));
+console.log(salt.toString("hex"));
