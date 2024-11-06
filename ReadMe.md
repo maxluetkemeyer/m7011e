@@ -23,6 +23,9 @@ https://github.com/prisma/prisma-examples/tree/latest/orm/rest-express
 
 https://jwt.io/introduction
 https://www.npmjs.com/package/jose
+https://stackoverflow.com/questions/10966689/set-client-side-accessible-cookie-in-express
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#samesitesamesite-value
+
 
 
 https://nodejs.org/api/crypto.html#crypto_crypto_scrypt_password_salt_keylen_options_callback

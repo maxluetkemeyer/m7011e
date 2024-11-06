@@ -1,5 +1,6 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import { verifyJWT } from "./jwt.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
@@ -15,7 +16,6 @@ router.get("/", async (req, res) => {
 			}
 		},
 	});
-	console.log(articles)
 	const tags = await prisma.tag.findMany();
 
 	res.render("index", {
@@ -39,7 +39,26 @@ router.get("/about", (req, res) => {
 	res.render("about", { myVar: "Hey" });
 });
 
-router.get("/dashboard", (req, res) => {
+router.get("/dashboard", async (req, res) => {
+	const cookies = req.cookies;
+	console.log(cookies);
+
+	const jwt = cookies.jwt;
+
+	if(!jwt) {
+		res.status(401).send("Unauthorized");
+		return
+	}
+
+	const verifyResult = await verifyJWT(jwt);
+
+	if(typeof verifyResult === 'string'){
+		res.status(401).send("Unauthorized");
+		return
+	}
+
+	//TODO: Check groups
+
 	res.render("users/dashboard", { myVar: "Hey" });
 });
 

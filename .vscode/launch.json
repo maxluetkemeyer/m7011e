@@ -5,9 +5,10 @@
             "name": "Run",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/src/main.ts",
+            "runtimeExecutable": "npm",
             "runtimeArgs": [
-                "--experimental-strip-types"
+                "run",
+                "run"
             ],
             "skipFiles": [
                 "<node_internals>/**"
@@ -17,10 +18,10 @@
             "name": "Dev",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/src/main.ts",
+            "runtimeExecutable": "npm",
             "runtimeArgs": [
-                "--experimental-strip-types",
-                "--watch"
+                "run",
+                "dev"
             ],
             "skipFiles": [
                 "<node_internals>/**"
@@ -30,9 +31,10 @@
             "name": "Test",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/node_modules/.bin/jest",
-            "args": [
-                "--runInBand"
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "test"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"

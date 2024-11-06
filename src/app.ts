@@ -1,13 +1,15 @@
 import express from "express";
-import router from "./routes.ts"
-import routerLogin from "./login.ts"
-import api_router from "./api/v1/api_routes.ts";
+import router from "./routes.js"
+import routerLogin from "./login.js"
+import api_router from "./api/v1/api_routes.js";
 import { engine } from "express-handlebars";
 import bodyparser from "body-parser";
+import cookieParser from "cookie-parser";
 
 export const app = express();
 
 app.use(bodyparser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views/");

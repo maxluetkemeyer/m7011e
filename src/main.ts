@@ -1,5 +1,5 @@
-import { configure } from "./config.ts";
-import { app } from "./app.ts";
+import { configure } from "./config.js";
+import { app } from "./app.js";
 
 configure();
 

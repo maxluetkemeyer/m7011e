@@ -2,7 +2,7 @@ import express from "express";
 import { PrismaClient, users } from "@prisma/client";
 import { scrypt } from "node:crypto";
 import { promisify } from "node:util";
-import { signJWT } from "./jwt.ts";
+import { signJWT } from "./jwt.js";
 
 const scryptAsync = promisify(scrypt);
 
@@ -32,32 +32,51 @@ router.post("/", async (req, res) => {
 	}
 
 	const user = loginResult;
+	const jwt = await getJWT(user);
+
+	res.cookie("jwt", jwt, {
+		httpOnly: true,
+		sameSite: "strict",
+		secure: true,
+		maxAge: 1000 * 60 * 15,
+	}); //15 minutes
+
+	res.redirect("/dashboard");
+});
+
+async function getJWT(user: users): Promise<string> {
+	// JWT
+	const groups = await prisma.user_group_member.findMany({
+		where: {
+			user_id: user.user_id,
+		},
+		include: {
+			user_group: true,
+		},
+	});
+
+	const groupNames = groups
+		.map((group) => group.user_group.name)
+		.filter((name): name is string => name !== null);
 
 	const jwt = await signJWT({
 		user_id: user.user_id,
 		name: user.name,
-		email: user.email
+		email: user.email,
+		groups: groupNames,
 	});
-	console.log(jwt)
 
-	res.redirect("/dashboard");
-});
+	return jwt;
+}
 
 async function login(email: string, password: string): Promise<string | users> {
 	const user = await prisma.users.findFirst({
 		where: {
 			email,
 		},
-		include: {
-			user_group_member: {
-				include: {
-					user_group: true,
-				},
-			},
-		},
 	});
 
-	console.log(user)
+	console.log(user); //user_group_member[0].user_group.name
 
 	if (user == null) {
 		return "User not found";

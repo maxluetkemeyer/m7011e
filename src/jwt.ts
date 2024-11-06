@@ -4,7 +4,15 @@ import { JWTPayload, SignJWT, jwtVerify } from "jose";
 const MY_SECRET = "Hello, World!";
 const secretKey = createSecretKey(MY_SECRET, "utf-8");
 
-export async function signJWT(payload: JWTPayload): Promise<string> {
+interface MyJWT extends JWTPayload {
+	user_id: number;
+	name: string;
+	email: string;
+	groups: string[];
+}
+
+
+export async function signJWT(payload: MyJWT): Promise<string> {
 	const token = await new SignJWT(payload) // details to  encode in the token
 		.setProtectedHeader({
 			alg: "HS256",
@@ -13,13 +21,13 @@ export async function signJWT(payload: JWTPayload): Promise<string> {
 		//.setIssuer(process.env.JWT_ISSUER) // issuer
 		//.setAudience(process.env.JWT_AUDIENCE) // audience
 		//.setExpirationTime(process.env.JWT_EXPIRATION_TIME) // token expiration time, e.g., "1 day"
+		.setExpirationTime("15 minutes")
 		.sign(secretKey); // secretKey generated from previous step
-	console.log(token); // log token to console
 
 	return token;
 }
 
-export async function verifyJWT(jwt: string): Promise<string | object> {
+export async function verifyJWT(jwt: string): Promise<string | MyJWT> {
 	// extract token from request
 	//const token = req.header("Authorization").replace("Bearer ", "");
 	const token = jwt;
@@ -31,10 +39,9 @@ export async function verifyJWT(jwt: string): Promise<string | object> {
 			//audience: process.env.JWT_AUDIENCE, // audience
 		});
 		// log values to console
-		console.log(payload);
 		console.log(protectedHeader);
 
-		return payload;
+		return payload as MyJWT;
 	} catch (e) {
 		// token verification failed
 		console.log("Token is invalid", e);
