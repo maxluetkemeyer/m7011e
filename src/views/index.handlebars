@@ -4,13 +4,19 @@
 			{{#each articles}}
 				<article>
 					<h2>{{this.title}}</h2>
-					<p>{{this.content}}</p>
-					<p>{{this.createdAt}}</p>
+					{{#each this.article_tag}}
+						<span class="badge text-bg-info">{{this.tag.name}}</span>
+					{{/each}}
+					<p class="article_content">{{this.content}}</p>
+					<p class="fst-italic">{{convertDateForArticle this.created_at}} by {{this.users.name}}</p>
+					
 				</article>
 			{{/each}}
 		</div>
 		<div class="col">
-			<p>{{myVar}}</p>
+			{{#each tags}}
+				<span class="badge text-bg-info">{{this.name}}</span>
+			{{/each}}
 		</div>
 	</div>
 </main>
@@ -18,6 +24,6 @@
 <div class="container">
 	<footer class="py-3 my-4 border-top">
 		<p class="text-center text-body-secondary">© 2024 Max Lütkemeyer,
-			Juliana</p>
+			Juliana Sanchez</p>
 	</footer>
 </div>

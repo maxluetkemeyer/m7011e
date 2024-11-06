@@ -8,3 +8,13 @@ nav h1 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 4rem;
 }
+
+.article_content {
+    display: inline-block;
+}
+
+.article_content:first-letter {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2rem;
+}

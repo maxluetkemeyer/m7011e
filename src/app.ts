@@ -19,8 +19,6 @@ app.use((req, res, next) => {
 });
 
 
-
-
 app.use("/static", express.static("src/static"));
 app.use("/", router);
 app.use("/login", routerLogin);
