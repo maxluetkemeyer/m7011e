@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 router.get("/", async (req, res) => {
 	const articles = await prisma.article.findMany();
 
-	res.render("index", { myVar: "Hey", articles });
+	res.render("index", { myVar: "Hey Juliana!", articles });
 });
 
 router.get("/about", (req, res) => {

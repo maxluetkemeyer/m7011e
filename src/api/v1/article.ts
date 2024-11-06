@@ -38,6 +38,7 @@ router.post("/", async (req, res) => {
 	res.json(article);
 });
 
+//TODO: use old or new if present
 router.put("/:id", async (req, res) => {
 	const article = await prisma.article.update({
 		where: {
