@@ -1,6 +1,7 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
 import { verifyJWT } from "./jwt.js";
+import { groupAuthorization } from "./authorization.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
 				include: {
 					tag: true,
 				},
-			}
+			},
 		},
 	});
 	const tags = await prisma.tag.findMany();
@@ -39,39 +40,36 @@ router.get("/about", (req, res) => {
 	res.render("about", { myVar: "Hey" });
 });
 
-router.get("/dashboard", async (req, res) => {
-	const cookies = req.cookies;
-	console.log(cookies);
+router.get(
+	"/dashboard",
+	groupAuthorization(["author", "admin"]),
+	async (req, res) => {
+		res.render("users/dashboard", { myVar: "Hey" });
+	},
+);
 
-	const jwt = cookies.jwt;
+router.get(
+	"/dashboard/write_article",
+	groupAuthorization(["author", "admin"]),
+	(req, res) => {
+		res.render("users/write_article", { myVar: "Hey" });
+	},
+);
 
-	if(!jwt) {
-		res.status(401).send("Unauthorized");
-		return
-	}
+router.get(
+	"/dashboard/edit_users",
+	groupAuthorization(["admin"]),
+	(req, res) => {
+		res.render("users/admin/edit_users", { myVar: "Hey" });
+	},
+);
 
-	const verifyResult = await verifyJWT(jwt);
-
-	if(typeof verifyResult === 'string'){
-		res.status(401).send("Unauthorized");
-		return
-	}
-
-	//TODO: Check groups
-
-	res.render("users/dashboard", { myVar: "Hey" });
-});
-
-router.get("/dashboard/write_article", (req, res) => {
-	res.render("users/write_article", { myVar: "Hey" });
-});
-
-router.get("/dashboard/edit_users", (req, res) => {
-	res.render("users/admin/edit_users", { myVar: "Hey" });
-});
-
-router.get("/dashboard/edit_user", (req, res) => {
-	res.render("users/admin/edit_user", { myVar: "Hey" });
-});
+router.get(
+	"/dashboard/edit_user",
+	groupAuthorization(["admin"]),
+	(req, res) => {
+		res.render("users/admin/edit_user", { myVar: "Hey" });
+	},
+);
 
 export default router;

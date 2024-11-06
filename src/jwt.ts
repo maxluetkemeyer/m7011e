@@ -11,7 +11,6 @@ interface MyJWT extends JWTPayload {
 	groups: string[];
 }
 
-
 export async function signJWT(payload: MyJWT): Promise<string> {
 	const token = await new SignJWT(payload) // details to  encode in the token
 		.setProtectedHeader({
