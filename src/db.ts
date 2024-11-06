@@ -3,14 +3,14 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-    // await prisma.user_group.create({
-    //     data: {
-    //         name: 'New Group',
-    //     }
-    // })
+	// await prisma.user_group.create({
+	//     data: {
+	//         name: 'New Group',
+	//     }
+	// })
 
-	const allGroups = await prisma.user_group.findMany()
-	
+	const allGroups = await prisma.user_group.findMany();
+
 	console.log(allGroups);
 }
 

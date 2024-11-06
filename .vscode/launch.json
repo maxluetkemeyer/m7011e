@@ -1,43 +1,30 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Run",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "run",
-                "run"
-            ],
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
-        },
-        {
-            "name": "Dev",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "run",
-                "dev"
-            ],
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
-        },
-        {
-            "name": "Test",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "run",
-                "test"
-            ],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen"
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Run",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "run"],
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"name": "Dev",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "dev"],
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"name": "Test",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "test"],
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen"
+		}
+	]
 }

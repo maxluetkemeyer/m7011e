@@ -5,11 +5,17 @@
 				<article>
 					<h2>{{this.title}}</h2>
 					{{#each this.article_tag}}
-						<span class="badge text-bg-info">{{this.tag.name}}</span>
+						<span
+							class="badge text-bg-info"
+						>{{this.tag.name}}</span>
 					{{/each}}
 					<p class="article_content">{{this.content}}</p>
-					<p class="fst-italic">{{convertDateForArticle this.created_at}} by {{this.users.name}}</p>
-					
+					<p class="fst-italic">{{convertDateForArticle
+							this.created_at
+						}}
+						by
+						{{this.users.name}}</p>
+
 				</article>
 			{{/each}}
 		</div>

@@ -1,35 +1,32 @@
-import { Request, Response, NextFunction } from 'express';
-import { verifyJWT } from './jwt.js';
+import { Request, Response, NextFunction } from "express";
+import { verifyJWT } from "./jwt.js";
 
 export function groupAuthorization(allowedGroups: string[]) {
-	return async (
-		req: Request,
-		res: Response,
-		next: NextFunction,
-	) => {
+	return async (req: Request, res: Response, next: NextFunction) => {
+		const cookies = req.cookies;
+		console.log(cookies);
+		const jwt = cookies.jwt;
+		if (!jwt) {
+			res.status(401).send("Unauthorized");
+			return;
+		}
+		const verifyResult = await verifyJWT(jwt);
 
-        const cookies = req.cookies;
-        console.log(cookies);
-        const jwt = cookies.jwt;
-        if(!jwt) {
-            res.status(401).send("Unauthorized");
-            return;
-        }
-        const verifyResult = await verifyJWT(jwt);
-        
-        if(typeof verifyResult === 'string'){
-            res.status(401).send("Unauthorized");
-            return;
-        }
-        console.log(verifyResult);
+		if (typeof verifyResult === "string") {
+			res.status(401).send("Unauthorized");
+			return;
+		}
+		console.log(verifyResult);
 
-        const userGroups = verifyResult.groups;
-        const isAllowed = userGroups.some((group) => allowedGroups.includes(group));
+		const userGroups = verifyResult.groups;
+		const isAllowed = userGroups.some((group) =>
+			allowedGroups.includes(group),
+		);
 
-        if(!isAllowed){
-            res.status(403).send("Forbidden");
-            return;
-        }
+		if (!isAllowed) {
+			res.status(403).send("Forbidden");
+			return;
+		}
 
 		next();
 	};

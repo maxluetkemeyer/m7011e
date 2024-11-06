@@ -1,21 +1,21 @@
 services:
-  db:
-    image: postgres:17
-    restart: unless-stopped
+    db:
+        image: postgres:17
+        restart: unless-stopped
 
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_DB: postgres
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    deploy:
-      endpoint_mode: dnsrr
-      mode: replicated
-      replicas: 10
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        deploy:
+            endpoint_mode: dnsrr
+            mode: replicated
+            replicas: 10
