@@ -1,7 +1,8 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, users } from "@prisma/client";
 import { scrypt } from "node:crypto";
 import { promisify } from "node:util";
+import { signJWT } from "./jwt.ts";
 
 const scryptAsync = promisify(scrypt);
 
@@ -21,16 +22,45 @@ router.post("/", async (req, res) => {
 		res.status(400).send("Email and password are required.");
 		return;
 	}
-    
+
+	const loginResult = await login(email, password);
+
+	if (typeof loginResult === "string") {
+		console.log(loginResult);
+		res.redirect("/login");
+		return;
+	}
+
+	const user = loginResult;
+
+	const jwt = await signJWT({
+		user_id: user.user_id,
+		name: user.name,
+		email: user.email
+	});
+	console.log(jwt)
+
+	res.redirect("/dashboard");
+});
+
+async function login(email: string, password: string): Promise<string | users> {
 	const user = await prisma.users.findFirst({
 		where: {
 			email,
 		},
+		include: {
+			user_group_member: {
+				include: {
+					user_group: true,
+				},
+			},
+		},
 	});
 
+	console.log(user)
+
 	if (user == null) {
-		res.redirect("/login");
-		return;
+		return "User not found";
 	}
 
 	const saltBuffer = Buffer.from(user.salt, "hex");
@@ -42,11 +72,10 @@ router.post("/", async (req, res) => {
 	)) as Buffer;
 
 	if (passwordHash.toString("hex") !== user.password_hash) {
-		res.redirect("/login");
-		return;
+		return "Invalid password";
 	}
 
-	res.redirect("/dashboard");
-});
+	return user;
+}
 
 export default router;

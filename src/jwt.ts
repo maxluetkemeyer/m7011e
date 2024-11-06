@@ -1,17 +1,10 @@
 import { createSecretKey } from "crypto";
-import { SignJWT, jwtVerify } from "jose";
+import { JWTPayload, SignJWT, jwtVerify } from "jose";
 
 const MY_SECRET = "Hello, World!";
-
 const secretKey = createSecretKey(MY_SECRET, "utf-8");
 
-const payload = {
-	user_id: "1234567890",
-	name: "John Doe",
-	groups: ["reader", "author"],
-};
-
-async function one() {
+export async function signJWT(payload: JWTPayload): Promise<string> {
 	const token = await new SignJWT(payload) // details to  encode in the token
 		.setProtectedHeader({
 			alg: "HS256",
@@ -26,9 +19,7 @@ async function one() {
 	return token;
 }
 
-const jwt = await one();
-
-async function two() {
+export async function verifyJWT(jwt: string): Promise<string | object> {
 	// extract token from request
 	//const token = req.header("Authorization").replace("Bearer ", "");
 	const token = jwt;
@@ -42,10 +33,12 @@ async function two() {
 		// log values to console
 		console.log(payload);
 		console.log(protectedHeader);
+
+		return payload;
 	} catch (e) {
 		// token verification failed
 		console.log("Token is invalid", e);
+
+		return "Token is invalid";
 	}
 }
-
-two();
