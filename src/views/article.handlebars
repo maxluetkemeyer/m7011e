@@ -1,0 +1,19 @@
+<main class="container">
+	<div class="row">
+		<div class="col">
+			<article>
+				<h2>{{article.title}}</h2>
+				<p class="article_content">{{article.content}}</p>
+			</article>
+		</div>
+		<div class="col">
+			<p class="fst-italic">{{convertDateForArticle
+					article.created_at
+				}}</p>
+			<p>by {{article.users.name}}</p>
+			{{#each article.article_tag}}
+				<span class="badge text-bg-info">{{this.tag.name}}</span>
+			{{/each}}
+		</div>
+	</div>
+</main>

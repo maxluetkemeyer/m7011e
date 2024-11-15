@@ -4,7 +4,7 @@ import { JWTPayload, SignJWT, jwtVerify } from "jose";
 const MY_SECRET = "Hello, World!";
 const secretKey = createSecretKey(MY_SECRET, "utf-8");
 
-interface MyJWT extends JWTPayload {
+export interface MyJWT extends JWTPayload {
 	user_id: number;
 	name: string;
 	email: string;

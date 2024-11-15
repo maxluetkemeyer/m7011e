@@ -13,10 +13,33 @@
 		<script src="/static/bootstrap.bundle.min.js"></script>
 
 		<nav class="container border-bottom mb-3 sticky-top bg-white">
-			<h1>Lulea Newspaper</h1>
+			<div class="row">
+				<div class="col">
+					<h1><a href="/">Lulea Newspaper</a></h1>
+					<img id="logo" src="/static/logo.png" />
+				</div>
+				<div class="col text-end align-self-end">
+					{{#if my_jwtPayload.user_id}}
+						<a href="/dashboard" class="link-secondary">
+							{{my_jwtPayload.name}}'s Dashboard</a>
+						<a href="/logout" class="link-secondary">Logout</a>
+					{{else}}
+						<a href="/login" class="link-secondary">Login</a>
+						<a href="/register" class="link-secondary">Register</a>
+					{{/if}}
+				</div>
+			</div>
+
 		</nav>
 
 		{{{body}}}
+
+		<div class="container">
+			<footer class="py-3 my-4 border-top">
+				<p class="text-center text-body-secondary">© 2024 Max
+					Lütkemeyer, Juliana Sanchez</p>
+			</footer>
+		</div>
 	</body>
 
 </html>

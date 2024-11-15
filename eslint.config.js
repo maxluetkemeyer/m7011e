@@ -10,4 +10,12 @@ export default [
 	pluginJs.configs.recommended,
 	...tseslint.configs.recommended,
 	eslintConfigPrettier,
+	{
+		overrides: [
+			{
+				files: ["src/static/**/*.{js,mjs,cjs,ts}"],
+				browser: true
+			},
+		],
+	},
 ];

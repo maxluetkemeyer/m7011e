@@ -1,1 +1,40 @@
-Dashboard
+<main class="container mt-5">
+	<h2 class="mb-4">Hello {{user_name}}</h2>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Author</th>
+					<th scope="col">Created At</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each articles}}
+					<tr>
+						<th scope="row">{{this.article_id}}</th>
+						<td>{{this.title}}</td>
+						<td>{{this.users.name}}</td>
+						<td>{{convertDateForArticle this.created_at}}</td>
+						<td>
+							<a
+								href="/article/{{this.article_id}}"
+								class="btn btn-primary btn-sm"
+							>View</a>
+							<a
+								href="/dashboard/edit_article/{{this.article_id}}"
+								class="btn btn-secondary btn-sm"
+							>Edit</a>
+							<a
+								id="delete_article"
+								class="btn btn-danger btn-sm"
+							>Delete</a>
+						</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</main>

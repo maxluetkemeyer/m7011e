@@ -3,15 +3,38 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
+	background-color: aliceblue;
 }
 
 nav h1 {
 	font-family: "Times New Roman", Times, serif;
 	font-size: 4rem;
+	display: inline-block;
+}
+
+nav h1 a {
+	text-decoration: none !important;
+	color: black !important;
+}
+
+#logo {
+	margin-left: 2rem;
+	transform: translateY(-10px);
+	height: 70px;
+	display: inline-block;
 }
 
 .article_content {
 	display: inline-block;
+}
+
+.article_clamp {
+	display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+	line-clamp: 4;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .article_content:first-letter {

@@ -40,6 +40,7 @@ router.post("/", async (req, res) => {
 
 //TODO: use old or new if present
 router.put("/:id", async (req, res) => {
+	console.log("put gemacht", req.body);
 	const article = await prisma.article.update({
 		where: {
 			article_id: parseInt(req.params.id),
@@ -47,11 +48,11 @@ router.put("/:id", async (req, res) => {
 		data: {
 			title: req.body.title,
 			content: req.body.content,
-			user_id: req.body.user_id, //TODO: CHECK
+			user_id: Number(req.body.user_id),
 			updated_at: new Date(),
 		},
 	});
-
+	
 	res.json(article);
 });
 

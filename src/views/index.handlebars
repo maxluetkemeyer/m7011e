@@ -3,13 +3,21 @@
 		<div class="col">
 			{{#each articles}}
 				<article>
-					<h2>{{this.title}}</h2>
+					<a
+						href="/article/{{this.article_id}}"
+						class="link-body-emphasis link-underline-opacity-0"
+					><h2>{{this.title}}</h2></a>
 					{{#each this.article_tag}}
 						<span
 							class="badge text-bg-info"
 						>{{this.tag.name}}</span>
 					{{/each}}
-					<p class="article_content">{{this.content}}</p>
+					<a
+						href="/article/{{this.article_id}}"
+						class="link-dark link-underline-opacity-0"
+					><p
+							class="article_content article_clamp"
+						>{{this.content}}</p></a>
 					<p class="fst-italic">{{convertDateForArticle
 							this.created_at
 						}}
@@ -26,10 +34,3 @@
 		</div>
 	</div>
 </main>
-
-<div class="container">
-	<footer class="py-3 my-4 border-top">
-		<p class="text-center text-body-secondary">© 2024 Max Lütkemeyer,
-			Juliana Sanchez</p>
-	</footer>
-</div>

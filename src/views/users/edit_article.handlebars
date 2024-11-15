@@ -1,0 +1,61 @@
+<main class="container mt-5">
+	<h2>Edit Article</h2>
+	<form
+		action="/api/v1/article/{{article.article_id}}"
+		method="POST"
+	>
+		<div class="mb-3">
+			<label for="title" class="form-label">Title</label>
+			<input
+				type="text"
+				class="form-control"
+				id="title"
+				name="title"
+				value="{{article.title}}"
+				required
+			/>
+		</div>
+		<div class="mb-3">
+			<label for="content" class="form-label">Content</label>
+			<textarea
+				class="form-control"
+				id="content"
+				name="content"
+				rows="10"
+				required
+			>{{article.content}}</textarea>
+		</div>
+		<div class="mb-3">
+			<label for="user_id" class="form-label">Author</label>
+			<select
+				class="form-select"
+				id="user_id"
+				name="user_id"
+				form="edit_article_form"
+				required
+			>
+				{{#each authors}}
+					<option
+						value="{{this.user_id}}"
+						{{#if (userIsAuthor this.user_id)}}selected{{/if}}
+					>{{this.name}}</option>
+				{{/each}}
+
+			</select>
+		</div>
+		<div class="mb-3">
+			<label for="updated_at" class="form-label">Last Update</label>
+			<input
+				type="text"
+				class="form-control"
+				id="updated_at"
+				name="updated_at"
+				value="{{article.updated_at}}"
+				required
+			/>
+		</div>
+		<button type="submit" class="btn btn-primary">Save Changes</button>
+	</form>
+</main>
+
+<script src="/static/edit_article.js"></script>

@@ -31,3 +31,25 @@ export function groupAuthorization(allowedGroups: string[]) {
 		next();
 	};
 }
+
+export function readJWTPayload() {
+	return async (req: Request, res: Response, next: NextFunction) => {
+		const cookies = req.cookies;
+		console.log(cookies);
+		const jwt = cookies.jwt;
+		if (!jwt) {
+			next();
+			return;
+		}
+		const verifyResult = await verifyJWT(jwt);
+
+		if (typeof verifyResult === "string") {
+			next();
+			return;
+		}
+
+		res.locals.my_jwtPayload = verifyResult;
+
+		next();
+	};
+}
