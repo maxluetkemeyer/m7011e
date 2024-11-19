@@ -16,12 +16,12 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views/");
 
-app.use((req, _, next) => {
-	console.log(req.method, req.url);
-	next();
-});
+// app.use((req, _, next) => {
+// 	console.log(req.method, req.url);
+// 	next();
+// });
 
-app.use(readJWTPayload())
+app.use(readJWTPayload());
 
 app.use("/static", express.static("src/static"));
 app.use("/", router);
