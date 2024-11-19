@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS user_group;
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    email TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
     salt TEXT NOT NULL
 )

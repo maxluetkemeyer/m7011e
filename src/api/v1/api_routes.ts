@@ -1,5 +1,5 @@
 import { Router } from "express";
-import article from "./article.js";
+import article from "./tables/article.js";
 import { groupAuthorization } from "../../authorization.js";
 
 const router = Router({ mergeParams: true });

@@ -1,10 +1,15 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import { groupAuthorization, readJWTPayload } from "./authorization.js";
-import { MyJWT } from "./jwt.js";
+import { groupAuthorization } from "../authorization.js";
+import { MyJWT } from "../jwt.js";
+import loginRouter from "./login/routes.js";
+import registerRouter from "./register/routes.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
+
+router.use("/login", loginRouter);
+router.use("/register", registerRouter);
 
 router.get("/", async (req, res) => {
 	const articles = await prisma.article.findMany({
@@ -39,6 +44,12 @@ router.get("/", async (req, res) => {
 	});
 });
 
+
+router.get("/logout", (_, res) => {
+	res.clearCookie("jwt");
+	res.redirect("/");
+});
+
 router.get("/about", (req, res) => {
 	res.render("about", { myVar: "Hey" });
 });
@@ -58,7 +69,7 @@ router.get("/article/:id", async (req, res) => {
 		},
 	});
 
-	if(!article) {
+	if (!article) {
 		res.status(404).render("Article not found");
 		return;
 	}
