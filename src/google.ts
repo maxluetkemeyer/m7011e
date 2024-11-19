@@ -19,7 +19,7 @@ async function authenticateImplicitWithAdc() {
 	// The client library finds your credentials using ADC.
 	const storage = new Storage({
 		projectId,
-		apiKey: process.env.GOOGLE_API_KEY,
+		keyFilename: "./privat/service_account_key.json",
 	});
 	const [buckets] = await storage.getBuckets();
 	console.log("Buckets:");
@@ -29,6 +29,21 @@ async function authenticateImplicitWithAdc() {
 	}
 
 	console.log("Listed all storage buckets.");
+
+	const bucket = storage.bucket("ltu_dynamicweb_mybucket");
+
+	async function listFiles() {
+		// Lists files in the bucket
+		const [files] = await bucket.getFiles();
+
+		console.log("Files:");
+		files.forEach((file) => {
+			console.log(file.name);
+		});
+	}
+
+	listFiles().catch(console.error);
+
 }
 
 authenticateImplicitWithAdc();
