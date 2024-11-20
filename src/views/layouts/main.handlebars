@@ -22,6 +22,7 @@
 					{{#if my_jwtPayload.user_id}}
 						<a href="/dashboard" class="link-secondary">
 							{{my_jwtPayload.name}}'s Dashboard</a>
+						<a href="/dashboard/totp" class="link-secondary">TOTP Settings</a>
 						<a href="/logout" class="link-secondary">Logout</a>
 					{{else}}
 						<a href="/login" class="link-secondary">Login</a>
@@ -40,6 +41,8 @@
 					Lütkemeyer, Juliana Sanchez</p>
 			</footer>
 		</div>
+
+		
 	</body>
 
 </html>

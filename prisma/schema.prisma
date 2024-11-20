@@ -54,6 +54,7 @@ model users {
   email             String              @unique
   password_hash     String
   salt              String
+  totp_secret       String?
   article           article[]
   user_group_member user_group_member[]
 }

@@ -20,6 +20,20 @@
 						name="password"
 					/>
 				</div>
+				<div class="row">
+					<div class="col">
+						<div class="mb-3">
+							<label for="totp_token" class="form-label">TOTP</label>
+							<input
+								type="text"
+								class="form-control"
+								id="totp_token"
+								name="totp_token"
+							/>
+						</div>
+					</div>
+					<div class="col"></div>
+				</div>
 				<button type="submit" class="btn btn-primary">Login</button>
 			</form>
 		</div>
@@ -32,13 +46,14 @@
         e.preventDefault();
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
+		const totp_token = document.querySelector('#totp_token').value;
 		
         const response = await fetch('/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, totp_token })
         });
 
 		// Redirect if response is redirected
