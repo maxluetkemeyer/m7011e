@@ -1,10 +1,9 @@
 import { PrismaClient, users } from "@prisma/client";
-import { scrypt } from "node:crypto";
+import { randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
 import { signJWT } from "../../jwt.js";
 
 const prisma = new PrismaClient();
-const scryptAsync = promisify(scrypt);
 
 export async function getJWT(user: users): Promise<string> {
 	// JWT
@@ -60,4 +59,18 @@ export async function login(
 	}
 
 	return user;
+}
+
+const randomBytesAsync = promisify(randomBytes);
+const scryptAsync = promisify(scrypt);
+
+export async function generate_salt_hex() {
+	const salt = await randomBytesAsync(128);
+	return salt.toString("hex");
+}
+
+export async function hash_password(password: string, saltAsHex: string) {
+	const salt = Buffer.from(saltAsHex, "hex");
+	const password_hash = (await scryptAsync(password, salt, 512)) as Buffer;
+	return password_hash.toString("hex");
 }
