@@ -11,6 +11,14 @@ router.get("/", async (_, res) => {
 			orderBy: {
 				article_id: "asc",
 			},
+			include: {
+				article_tag: {
+					include: {
+						tag: true,
+					},
+				},
+			},
+
 		})
 		.catch((e) => {
 			console.error(e);
@@ -30,6 +38,13 @@ router.get("/:id", async (req, res) => {
 		.findUnique({
 			where: {
 				article_id: parseInt(req.params.id),
+			},
+			include: {
+				article_tag: {
+					include: {
+						tag: true,
+					},
+				},
 			},
 		})
 		.catch((e) => {

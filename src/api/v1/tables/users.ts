@@ -16,6 +16,13 @@ router.get("/", async (_, res) => {
 			orderBy: {
 				user_id: "asc",
 			},
+			include: {
+				user_group_member: {
+					include: {
+						user_group: true,
+					},
+				}
+			},
 		})
 		.catch((e) => {
 			console.error(e);
@@ -35,6 +42,13 @@ router.get("/:id", async (req, res) => {
 		.findUnique({
 			where: {
 				user_id: parseInt(req.params.id),
+			},
+			include: {
+				user_group_member: {
+					include: {
+						user_group: true,
+					},
+				},
 			},
 		})
 		.catch((e) => {
