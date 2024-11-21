@@ -37,8 +37,4 @@ router.get("/", async (req, res) => {
 	});
 });
 
-router.get("/about", (_, res) => {
-	res.render("about", { myVar: "Hey" });
-});
-
 export default router;
