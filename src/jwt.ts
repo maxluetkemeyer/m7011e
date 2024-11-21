@@ -38,7 +38,7 @@ export async function verifyJWT(jwt: string): Promise<string | MyJWT> {
 			//audience: process.env.JWT_AUDIENCE, // audience
 		});
 		// log values to console
-		console.log(protectedHeader);
+		//console.log(protectedHeader);
 
 		return payload as MyJWT;
 	} catch (e) {

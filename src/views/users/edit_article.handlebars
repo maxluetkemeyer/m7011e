@@ -1,8 +1,10 @@
 <main class="container mt-5">
 	<h2>Edit Article</h2>
 	<form
-		action="/api/v1/article/{{article.article_id}}"
+		action="/dashboard/edit_article/{{article.article_id}}" 
 		method="POST"
+		enctype="multipart/form-data"
+		id="edit_article_form"
 	>
 		<div class="mb-3">
 			<label for="title" class="form-label">Title</label>
@@ -35,13 +37,15 @@
 				required
 			>
 				{{#each authors}}
-					<option
-						value="{{this.user_id}}"
-						{{#if (userIsAuthor this.user_id)}}selected{{/if}}
-					>{{this.name}}</option>
+					<option value="{{this.user_id}}" {{#if (userIsAuthor this.user_id)}}selected{{/if}} >{{this.name}}</option>
 				{{/each}}
 
 			</select>
+		</div>
+		<div class="mb-3">
+			<label for="thumbnail" class="form-label">Thumbnail</label>
+			<input class="form-control" type="file" id="thumbnail" name="thumbnail"/>
+			<img src="{{article.image_url}}" />
 		</div>
 		<div class="mb-3">
 			<label for="updated_at" class="form-label">Last Update</label>
@@ -51,11 +55,12 @@
 				id="updated_at"
 				name="updated_at"
 				value="{{article.updated_at}}"
-				required
+				readonly
 			/>
+			
 		</div>
 		<button type="submit" class="btn btn-primary">Save Changes</button>
 	</form>
 </main>
 
-<script src="/static/edit_article.js"></script>
+{{!-- <script src="/static/edit_article.js"></script> --}}

@@ -1,5 +1,6 @@
 document.querySelector("form").addEventListener("submit", async (event) => {
 	event.preventDefault();
+	
 	const form = event.target;
 	const data = new FormData(form);
 	const jsonData = {};
@@ -8,12 +9,16 @@ document.querySelector("form").addEventListener("submit", async (event) => {
 	});
 	jsonData["user_id"] = document.querySelector("#user_id").value;
 
+
+	const my_form_data = new FormData();
+	for (const name in jsonData) {
+		formData.append(name, data[name]);
+	}
+
 	let response = await fetch(form.action, {
 		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(jsonData),
+		body: my_form_data,
+		
 	});
 
 	if (response.status !== 200) {

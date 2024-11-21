@@ -18,7 +18,6 @@ router.get("/", async (_, res) => {
 					},
 				},
 			},
-
 		})
 		.catch((e) => {
 			console.error(e);
@@ -97,6 +96,7 @@ router.put("/:id", async (req, res) => {
 				user_id: req.body.user_id
 					? Number(req.body.user_id)
 					: undefined,
+				image_url: req.body.image_url,
 				updated_at: new Date(),
 				created_at: req.body.created_at
 					? new Date(req.body.created_at)

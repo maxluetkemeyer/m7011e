@@ -3,7 +3,6 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
-	background-color: aliceblue;
 }
 
 nav h1 {
@@ -41,4 +40,8 @@ nav h1 a {
 	text-transform: uppercase;
 	font-weight: bold;
 	font-size: 2rem;
+}
+
+.article_thumbnail {
+	width: 100%;
 }

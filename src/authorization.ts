@@ -4,7 +4,7 @@ import { verifyJWT } from "./jwt.js";
 export function groupAuthorization(allowedGroups: string[]) {
 	return async (req: Request, res: Response, next: NextFunction) => {
 		const cookies = req.cookies;
-		console.log(cookies);
+		//console.log(cookies);
 		const jwt = cookies.jwt;
 		if (!jwt) {
 			res.status(401).send("Unauthorized");
@@ -16,7 +16,7 @@ export function groupAuthorization(allowedGroups: string[]) {
 			res.status(401).send("Unauthorized");
 			return;
 		}
-		console.log(verifyResult);
+		//console.log(verifyResult);
 
 		const userGroups = verifyResult.groups;
 		const isAllowed = userGroups.some((group) =>
@@ -35,7 +35,7 @@ export function groupAuthorization(allowedGroups: string[]) {
 export function readJWTPayload() {
 	return async (req: Request, res: Response, next: NextFunction) => {
 		const cookies = req.cookies;
-		console.log(cookies);
+		//console.log(cookies);
 		const jwt = cookies.jwt;
 		if (!jwt) {
 			next();

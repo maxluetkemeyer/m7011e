@@ -20,6 +20,7 @@ model article {
   created_at  DateTime?     @db.Timestamp(6)
   updated_at  DateTime?     @db.Timestamp(6)
   user_id     Int?
+  image_url   String?
   users       users?        @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
   article_tag article_tag[]
 }

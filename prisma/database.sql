@@ -35,7 +35,8 @@ CREATE TABLE article (
     content TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    user_id INT REFERENCES users(user_id)
+    user_id INT REFERENCES users(user_id),
+    image_url TEXT
 )
 
 CREATE TABLE tag (

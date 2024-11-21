@@ -1,5 +1,10 @@
 <main class="container mt-5">
-	<h2 class="mb-4">Hello {{user_name}}</h2>
+	<h2 class="mb-3">Hello {{user_name}}</h2>
+	<div class="mb-3">
+		<a href="/dashboard/new_article/" class="btn btn-success">New Article</a>
+		<a href="/dashboard/edit_user/" class="btn btn-dark">Edit Users</a>
+		<a href="/dashboard/edit_article/" class="btn btn-secondary">Edit Tags</a>
+	</div>
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<thead>
@@ -28,7 +33,7 @@
 								class="btn btn-secondary btn-sm"
 							>Edit</a>
 							<a
-								id="delete_article"
+								href="/dashboard/delete_article/{{this.article_id}}"
 								class="btn btn-danger btn-sm"
 							>Delete</a>
 						</td>

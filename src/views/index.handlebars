@@ -6,7 +6,12 @@
 					<a
 						href="/article/{{this.article_id}}"
 						class="link-body-emphasis link-underline-opacity-0"
-					><h2>{{this.title}}</h2></a>
+					>
+						{{#if this.image_url}}
+							<img src="{{this.image_url}}" class="img-fluid rounded mb-2 article_thumbnail"/>
+						{{/if}}
+						<h2>{{this.title}}</h2>
+					</a>
 					{{#each this.article_tag}}
 						<span
 							class="badge text-bg-info"
