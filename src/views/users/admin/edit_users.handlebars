@@ -1,7 +1,7 @@
 <main class="container mt-5">
-	<h2 class="mb-3">Edit Users</h2>
+	<h2 class="mb-3">Users</h2>
 	<div class="mb-3">
-		<a href="/dashboard/new_article/" class="btn btn-warning">New User</a>
+		<a href="/dashboard/new_user/" class="btn btn-success">New User</a>
 	</div>
 	<div class="table-responsive">
 		<table class="table table-striped">
@@ -12,6 +12,7 @@
 					<th scope="col">E-mail</th>
 					<th scope="col">TOTP</th>
 					<th scope="col">Groups</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,6 +30,10 @@
 							{{#each this.user_group_member}}
                                 <span class="badge text-bg-secondary">{{this.user_group.name}}</span>
                             {{/each}}
+						</td>
+						<td>
+							<a href="/dashboard/edit_user/{{this.user_id}}" class="btn btn-warning btn-sm">Edit</a>
+							<a href="/dashboard/delete_user/{{this.user_id}}" class="btn btn-danger btn-sm">Delete</a>
 						</td>
 					</tr>
 				{{/each}}
