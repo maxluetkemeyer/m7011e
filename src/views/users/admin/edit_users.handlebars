@@ -1,1 +1,38 @@
-Edit users
+<main class="container mt-5">
+	<h2 class="mb-3">Edit Users</h2>
+	<div class="mb-3">
+		<a href="/dashboard/new_article/" class="btn btn-warning">New User</a>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">E-mail</th>
+					<th scope="col">TOTP</th>
+					<th scope="col">Groups</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each users}}
+					<tr>
+						<th scope="row">{{this.user_id}}</th>
+						<td>{{this.name}}</td>
+						<td>{{this.email}}</td>
+						<td>
+                            {{#if this.totp_secret}}
+                                enabled
+                            {{/if}}
+                        </td>
+						<td>
+							{{#each this.user_group_member}}
+                                <span class="badge text-bg-secondary">{{this.user_group.name}}</span>
+                            {{/each}}
+						</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</main>
