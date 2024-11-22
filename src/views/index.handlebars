@@ -16,7 +16,7 @@
 						<h2>{{this.title}}</h2>
 					</a>
 					{{#each this.article_tag}}
-						<span class="badge text-bg-info">{{this.tag.name}}</span>
+						<span class="badge my-tag" style="background-color: {{this.tag.color}}">{{this.tag.name}}</span>
 					{{/each}}
 					<a
 						href="/article/{{this.article_id}}"
@@ -31,7 +31,7 @@
 		</div>
 		<div class="col">
 			{{#each tags}}
-				<span class="badge text-bg-info">{{this.name}}</span>
+				<span class="badge my-tag" style="background-color: {{this.color}}">{{this.name}}</span>
 			{{/each}}
 		</div>
 	</div>

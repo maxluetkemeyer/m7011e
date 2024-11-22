@@ -5,6 +5,7 @@ import { MyJWT } from "../../jwt.js";
 import adminRouter from "./admin/routes.js";
 import totpRouter from "./totp/routes.js";
 import articleRouter from "./article/routes.js";
+import tagRouter from "./tags/routes.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
@@ -12,6 +13,7 @@ const prisma = new PrismaClient();
 router.use(groupAuthorization(["admin"]), adminRouter);
 router.use(totpRouter);
 router.use(articleRouter);
+router.use(tagRouter);
 
 router.get("/", async (_, res) => {
 	const articles = await prisma.article.findMany({

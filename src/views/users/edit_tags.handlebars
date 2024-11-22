@@ -1,0 +1,51 @@
+<main class="container mt-5">
+	<h2 class="mb-3">Tags</h2>
+	<div class="mb-3">
+		<a href="/dashboard/new_tag" class="btn btn-success">New Tag</a>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Name</th>
+					<th scope="col">Color</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each tags}}
+					<form action="/dashboard/edit_tag/{{this.tag_id}}" method="POST">
+						<tr>
+							<th scope="row">{{this.tag_id}}</th>
+							<td>
+								<input
+									type="text"
+									class="form-control"
+									id="name"
+									name="name"
+									value="{{this.name}}"
+									required
+								/>
+							</td>
+							<td>
+								<input
+									type="color"
+									class="form-control form-control-color"
+									id="color"
+									name="color"
+									value="{{this.color}}"
+									title="Choose your color"
+								/>
+							</td>
+							<td>
+								<button type="submit" class="btn btn-secondary">Save</button>
+								<a href="/dashboard/delete_tag/{{this.tag_id}}" class="btn btn-danger">Delete</a>
+							</td>
+						</tr>
+					</form>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</main>

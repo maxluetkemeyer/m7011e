@@ -17,19 +17,19 @@ model article {
   article_id  Int           @id @default(autoincrement())
   title       String?
   content     String?
+  image_url   String?
   created_at  DateTime?     @db.Timestamp(6)
   updated_at  DateTime?     @db.Timestamp(6)
   user_id     Int?
-  image_url   String?
-  users       users?        @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  users       users?        @relation(fields: [user_id], references: [user_id])
   article_tag article_tag[]
 }
 
 model article_tag {
   article_id Int
   tag_id     Int
-  article    article @relation(fields: [article_id], references: [article_id], onDelete: NoAction, onUpdate: NoAction)
-  tag        tag     @relation(fields: [tag_id], references: [tag_id], onDelete: NoAction, onUpdate: NoAction)
+  article    article @relation(fields: [article_id], references: [article_id], onDelete: Cascade)
+  tag        tag     @relation(fields: [tag_id], references: [tag_id], onDelete: Cascade)
 
   @@id([article_id, tag_id])
 }
@@ -37,14 +37,15 @@ model article_tag {
 model tag {
   tag_id      Int           @id @default(autoincrement())
   name        String?
+  color       String?
   article_tag article_tag[]
 }
 
 model user_group_member {
   group_id   Int
   user_id    Int
-  user_group user_group @relation(fields: [group_id], references: [group_id], onDelete: NoAction, onUpdate: NoAction)
-  users      users      @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  user_group user_group @relation(fields: [group_id], references: [group_id], onDelete: Cascade)
+  users      users      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 
   @@id([group_id, user_id])
 }

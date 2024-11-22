@@ -25,31 +25,32 @@ CREATE TABLE user_group_member (
     group_id INTEGER,
     user_id INTEGER,
     PRIMARY KEY (group_id, user_id),
-    FOREIGN KEY (group_id) REFERENCES user_group(group_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (group_id) REFERENCES user_group(group_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE article (
     article_id SERIAL PRIMARY KEY,
     title TEXT,
     content TEXT,
+    image_url TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    user_id INT REFERENCES users(user_id),
-    image_url TEXT
+    user_id INT REFERENCES users(user_id) ON DELETE SET NULL ON UPDATE CASCADE
 )
 
 CREATE TABLE tag (
     tag_id SERIAL PRIMARY KEY,
-    name TEXT
+    name TEXT,
+    color TEXT
 )
 
 CREATE TABLE article_tag (
     article_id INT,
     tag_id INT,
     PRIMARY KEY (article_id, tag_id),
-    FOREIGN KEY (article_id) REFERENCES article(article_id),
-    FOREIGN KEY (tag_id) REFERENCES tag(tag_id)
+    FOREIGN KEY (article_id) REFERENCES article(article_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tag(tag_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 /*markdown

@@ -14,6 +14,7 @@
 					<th scope="col">Author</th>
 					<th scope="col">Created At</th>
 					<th scope="col">Actions</th>
+					<th scope="col">Tags</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,6 +37,13 @@
 								href="/dashboard/delete_article/{{this.article_id}}"
 								class="btn btn-danger btn-sm"
 							>Delete</a>
+						</td>
+						<td>
+							{{#each this.article_tag}}
+								<span
+									class="badge text-bg-secondary"
+								>{{this.tag.name}}</span>
+							{{/each}}
 						</td>
 					</tr>
 				{{/each}}

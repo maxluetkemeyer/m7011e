@@ -1,5 +1,6 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import { groupAuthorization } from "../../../authorization.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
@@ -45,7 +46,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // CREATE
-router.post("/", async (req, res) => {
+router.post("/", groupAuthorization(["author, admin"]), async (req, res) => {
 	const tag = await prisma.tag
 		.create({
 			data: {
@@ -65,7 +66,7 @@ router.post("/", async (req, res) => {
 });
 
 // UPDATE
-router.put("/:id", async (req, res) => {
+router.put("/:id", groupAuthorization(["author, admin"]), async (req, res) => {
 	const tag = await prisma.tag
 		.update({
 			where: {
@@ -88,7 +89,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", groupAuthorization(["author, admin"]), async (req, res) => {
 	const tag = await prisma.tag
 		.delete({
 			where: {

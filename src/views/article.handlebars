@@ -16,7 +16,7 @@
 			<p class="fst-italic">{{convertDateForArticle article.created_at}}</p>
 			<p>by {{article.users.name}}</p>
 			{{#each article.article_tag}}
-				<span class="badge text-bg-info">{{this.tag.name}}</span>
+				<span class="badge my-tag" style="background-color: {{this.tag.color}}">{{this.tag.name}}</span>
 			{{/each}}
 		</div>
 	</div>

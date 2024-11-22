@@ -1,5 +1,6 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import { groupAuthorization } from "../../../authorization.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
@@ -48,7 +49,7 @@ router.get("/:articleId/:tagId", async (req, res) => {
 });
 
 // CREATE
-router.post("/", async (req, res) => {
+router.post("/", groupAuthorization(["author, admin"]), async (req, res) => {
 	const article_tag = await prisma.article_tag
 		.create({
 			data: {
@@ -71,7 +72,7 @@ router.post("/", async (req, res) => {
 // NO UPDATE, as there is only the primary key!
 
 // DELETE
-router.delete("/:articleId/:tagId", async (req, res) => {
+router.delete("/:articleId/:tagId", groupAuthorization(["author, admin"]), async (req, res) => {
 	const article_tag = await prisma.article_tag
 		.delete({
 			where: {
