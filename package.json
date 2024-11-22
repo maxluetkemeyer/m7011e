@@ -7,7 +7,7 @@
 	"scripts": {
 		"start": "npx tsc && node dist/main.js",
 		"dev": "npx nodemon --ext ts --exec 'tsc && node dist/main.js || exit 1'",
-		"test": "npx jest",
+		"test": "jest --watch",
 		"run_old": "node --experimental-strip-types src/main.ts",
 		"dev_old": "node --experimental-strip-types --watch src/main.ts",
 		"test_old": "jest"
@@ -16,6 +16,7 @@
 	"license": "UNLICENSED",
 	"devDependencies": {
 		"@eslint/js": "^9.14.0",
+		"@jest/globals": "^29.7.0",
 		"@types/cookie-parser": "^1.4.7",
 		"@types/jest": "^29.5.14",
 		"@types/multer": "^1.4.12",

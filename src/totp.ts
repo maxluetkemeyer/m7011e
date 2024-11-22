@@ -30,8 +30,8 @@ export function validateToken(token: string, secret: string, account: string) {
 	return true;
 }
 
-export function generateTOTPSecret() {
-	const secret = new OTPAuth.Secret({ size: 20 });
+export function generateTOTPSecret({ size = 20 } = {}): string {
+	const secret = new OTPAuth.Secret({ size });
 
 	return secret.base32;
 }
