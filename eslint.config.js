@@ -14,7 +14,7 @@ export default [
 		overrides: [
 			{
 				files: ["src/static/**/*.{js,mjs,cjs,ts}"],
-				browser: true
+				browser: true,
 			},
 		],
 	},

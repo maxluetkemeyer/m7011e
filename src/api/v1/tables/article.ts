@@ -93,14 +93,10 @@ router.put("/:id", async (req, res) => {
 			data: {
 				title: req.body.title,
 				content: req.body.content,
-				user_id: req.body.user_id
-					? Number(req.body.user_id)
-					: undefined,
+				user_id: req.body.user_id ? Number(req.body.user_id) : undefined,
 				image_url: req.body.image_url,
 				updated_at: new Date(),
-				created_at: req.body.created_at
-					? new Date(req.body.created_at)
-					: undefined,
+				created_at: req.body.created_at ? new Date(req.body.created_at) : undefined,
 			},
 		})
 		.catch((e) => {

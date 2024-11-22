@@ -1,8 +1,8 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <h2>Two-Factor Authentication for {{user_name}}</h2>
-            <form action="/dashboard/totp" method="post">
+	<div class="row">
+		<div class="col">
+			<h2>Two-Factor Authentication for {{user_name}}</h2>
+			<form action="/dashboard/totp" method="post">
 				<div class="mb-3">
 					<label for="totp_secret" class="form-label">Secret</label>
 					<input
@@ -10,8 +10,8 @@
 						class="form-control"
 						id="totp_secret"
 						name="totp_secret"
-                        readonly
-                        value="{{totp_secret}}"
+						readonly
+						value="{{totp_secret}}"
 					/>
 				</div>
 				<div class="row">
@@ -31,9 +31,9 @@
 				<button id="save_totp" type="submit" class="btn btn-primary">Save TOTP</button>
 			</form>
 			<button id="remove_totp" type="submit" class="btn btn-danger">Remove TOTP</button>
-        </div>
-        <div class="col">
-			
+		</div>
+		<div class="col">
+
 			<div class="mb-3 mt-5">
 				<label for="totp_link" class="form-label">TOTP Link</label>
 				<textarea
@@ -46,61 +46,27 @@
 			</div>
 			<div id="qrcode"></div>
 		</div>
-    </div>
+	</div>
 </div>
 
 <script>
-	document.querySelector('form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const totp_secret = document.querySelector('#totp_secret').value;
-        const totp_token = document.querySelector('#totp_token').value;
-		
-        const response = await fetch('/dashboard/totp', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ totp_secret, totp_token })
-        });
-
-		// Redirect if response is redirected
-		if (response.redirected && response.url) {
-			window.location = response.url;
-			return;
-		}
-
-		// Display message
-        const data = await response.json();
-        alert(data.message);
-        return;
-    });
-
-	document.querySelector('#remove_totp').addEventListener('click', async (e) => {
-		const response = await fetch('/dashboard/totp', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ })
-        });
-
-		// Redirect if response is redirected
-		if (response.redirected && response.url) {
-			window.location = response.url;
-			return;
-		}
-
-		// Display message
-        const data = await response.json();
-        alert(data.message);
-        return;
-	});
+	document.querySelector('form').addEventListener('submit', async (e) => { e.preventDefault();
+	const totp_secret = document.querySelector('#totp_secret').value; const totp_token =
+	document.querySelector('#totp_token').value; const response = await fetch('/dashboard/totp', {
+	method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+	totp_secret, totp_token }) }); // Redirect if response is redirected if (response.redirected &&
+	response.url) { window.location = response.url; return; } // Display message const data = await
+	response.json(); alert(data.message); return; });
+	document.querySelector('#remove_totp').addEventListener('click', async (e) => { const response =
+	await fetch('/dashboard/totp', { method: 'DELETE', headers: { 'Content-Type': 'application/json'
+	}, body: JSON.stringify({ }) }); // Redirect if response is redirected if (response.redirected
+	&& response.url) { window.location = response.url; return; } // Display message const data =
+	await response.json(); alert(data.message); return; });
 </script>
 
 <script src="/static/qrcode.min.js"></script>
 
 <script>
-	const totp_link = document.querySelector('#totp_link').value;
-	console.log(totp_link);
-	new QRCode(document.getElementById("qrcode"), totp_link);
+	const totp_link = document.querySelector('#totp_link').value; console.log(totp_link); new
+	QRCode(document.getElementById("qrcode"), totp_link);
 </script>

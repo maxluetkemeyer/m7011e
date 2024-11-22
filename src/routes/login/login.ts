@@ -30,10 +30,7 @@ export async function getJWT(user: users): Promise<string> {
 	return jwt;
 }
 
-export async function login(
-	email: string,
-	password: string,
-): Promise<string | users> {
+export async function login(email: string, password: string): Promise<string | users> {
 	const user = await prisma.users.findFirst({
 		where: {
 			email,
@@ -48,11 +45,7 @@ export async function login(
 
 	const saltBuffer = Buffer.from(user.salt, "hex");
 
-	const passwordHash = (await scryptAsync(
-		password,
-		saltBuffer,
-		512,
-	)) as Buffer;
+	const passwordHash = (await scryptAsync(password, saltBuffer, 512)) as Buffer;
 
 	if (passwordHash.toString("hex") !== user.password_hash) {
 		return "Invalid password";

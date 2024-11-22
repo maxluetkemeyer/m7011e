@@ -29,10 +29,10 @@ router.get("/:groupId/:userId", async (req, res) => {
 	const user_group_member = await prisma.user_group_member
 		.findUnique({
 			where: {
-                group_id_user_id: {
-                    group_id: parseInt(req.params.groupId),
-                    user_id: parseInt(req.params.userId),
-                },
+				group_id_user_id: {
+					group_id: parseInt(req.params.groupId),
+					user_id: parseInt(req.params.userId),
+				},
 			},
 		})
 		.catch((e) => {
@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
 		.create({
 			data: {
 				group_id: parseInt(req.body.group_id),
-                user_id: parseInt(req.body.user_id),
+				user_id: parseInt(req.body.user_id),
 			},
 		})
 		.catch((e) => {

@@ -29,8 +29,8 @@ nav h1 a {
 
 .article_clamp {
 	display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
 	line-clamp: 4;
 	overflow: hidden;
 	text-overflow: ellipsis;

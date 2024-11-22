@@ -13,11 +13,7 @@ router.use("/", homeRouter);
 router.use("/login", loginRouter);
 router.use("/register", registerRouter);
 router.use("/article", articleRouter);
-router.use(
-	"/dashboard",
-	groupAuthorization(["author", "admin"]),
-	dashboardRouter,
-);
+router.use("/dashboard", groupAuthorization(["author", "admin"]), dashboardRouter);
 
 router.get("/logout", (_, res) => {
 	res.clearCookie("jwt");

@@ -10,7 +10,6 @@ router.get("/", (_, res) => {
 });
 
 router.get("/thankyou", (_, res) => {
-
 	const jwtPayload = res.locals.my_jwtPayload as MyJWT;
 	const user_name = jwtPayload.name;
 

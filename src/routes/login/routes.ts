@@ -30,12 +30,12 @@ router.post("/", async (req, res) => {
 	const user = loginResult;
 
 	// Check TOTP
-	if (user.totp_secret ) {
+	if (user.totp_secret) {
 		if (!totp_token) {
 			res.send({ message: "Missing TOTP token" });
 			return;
 		}
-		
+
 		const valiadtionResult = validateToken(totp_token, user.totp_secret, user.email);
 
 		if (!valiadtionResult) {
@@ -43,7 +43,6 @@ router.post("/", async (req, res) => {
 			return;
 		}
 	}
-
 
 	const jwt = await getJWT(user);
 

@@ -69,51 +69,43 @@ router.get("/edit_article/:id", async (req, res) => {
 	});
 });
 
-router.post(
-	"/edit_article/:id",
-	upload.single("thumbnail"),
-	async (req, res) => {
-		const id = parseInt(req.params.id);
+router.post("/edit_article/:id", upload.single("thumbnail"), async (req, res) => {
+	const id = parseInt(req.params.id);
 
-		let thumbnail_destination: string | undefined = undefined;
-		if (req.file) {
-			let file_extension = req.file.mimetype.split("/")[1];
+	let thumbnail_destination: string | undefined = undefined;
+	if (req.file) {
+		let file_extension = req.file.mimetype.split("/")[1];
 
-			thumbnail_destination = `articles/thumbnails/${id}.${file_extension}`;
-			uploadFromMemory(thumbnail_destination, req.file.buffer);
-		}
+		thumbnail_destination = `articles/thumbnails/${id}.${file_extension}`;
+		uploadFromMemory(thumbnail_destination, req.file.buffer);
+	}
 
-		const article = await prisma.article
-			.update({
-				where: {
-					article_id: id,
-				},
-				data: {
-					title: req.body.title,
-					content: req.body.content,
-					user_id: req.body.user_id
-						? Number(req.body.user_id)
-						: undefined,
-					image_url: thumbnail_destination
-						? `${GOOGLE_URL_PREFIX}${thumbnail_destination}`
-						: undefined,
-					updated_at: new Date(),
-					created_at: req.body.created_at
-						? new Date(req.body.created_at)
-						: undefined,
-				},
-			})
-			.catch((e) => {
-				console.error(e);
-			});
+	const article = await prisma.article
+		.update({
+			where: {
+				article_id: id,
+			},
+			data: {
+				title: req.body.title,
+				content: req.body.content,
+				user_id: req.body.user_id ? Number(req.body.user_id) : undefined,
+				image_url: thumbnail_destination
+					? `${GOOGLE_URL_PREFIX}${thumbnail_destination}`
+					: undefined,
+				updated_at: new Date(),
+				created_at: req.body.created_at ? new Date(req.body.created_at) : undefined,
+			},
+		})
+		.catch((e) => {
+			console.error(e);
+		});
 
-		if (article == null) {
-			res.send("Invalid request");
-			return;
-		}
+	if (article == null) {
+		res.send("Invalid request");
+		return;
+	}
 
-		res.redirect("/dashboard");
-	},
-);
+	res.redirect("/dashboard");
+});
 
 export default router;

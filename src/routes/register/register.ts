@@ -12,9 +12,7 @@ interface NewUser {
 	password: string;
 }
 
-export async function createUser(
-	credentials: NewUser,
-): Promise<string | users> {
+export async function createUser(credentials: NewUser): Promise<string | users> {
 	const { name, email, password } = credentials;
 
 	// Check if email is already in use

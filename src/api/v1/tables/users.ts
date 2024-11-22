@@ -1,9 +1,6 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import {
-	generate_salt_hex,
-	hash_password,
-} from "../../../routes/login/login.js";
+import { generate_salt_hex, hash_password } from "../../../routes/login/login.js";
 import { hash } from "crypto";
 
 const router = express.Router({ mergeParams: true });
@@ -21,7 +18,7 @@ router.get("/", async (_, res) => {
 					include: {
 						user_group: true,
 					},
-				}
+				},
 			},
 		})
 		.catch((e) => {

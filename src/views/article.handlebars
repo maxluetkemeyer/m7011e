@@ -3,16 +3,17 @@
 		<div class="col">
 			<article>
 				{{#if article.image_url}}
-					<img src="{{article.image_url}}" class="img-fluid rounded mb-2 article_thumbnail"/>
+					<img
+						src="{{article.image_url}}"
+						class="img-fluid rounded mb-2 article_thumbnail"
+					/>
 				{{/if}}
 				<h2>{{article.title}}</h2>
 				<p class="article_content">{{article.content}}</p>
 			</article>
 		</div>
 		<div class="col">
-			<p class="fst-italic">{{convertDateForArticle
-					article.created_at
-				}}</p>
+			<p class="fst-italic">{{convertDateForArticle article.created_at}}</p>
 			<p>by {{article.users.name}}</p>
 			{{#each article.article_tag}}
 				<span class="badge text-bg-info">{{this.tag.name}}</span>

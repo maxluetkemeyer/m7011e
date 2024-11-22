@@ -4,21 +4,11 @@
 			<form action="/login" method="post">
 				<div class="mb-3">
 					<label for="email" class="form-label">Email</label>
-					<input
-						type="email"
-						class="form-control"
-						id="email"
-						name="email"
-					/>
+					<input type="email" class="form-control" id="email" name="email" />
 				</div>
 				<div class="mb-3">
 					<label for="password" class="form-label">Password</label>
-					<input
-						type="password"
-						class="form-control"
-						id="password"
-						name="password"
-					/>
+					<input type="password" class="form-control" id="password" name="password" />
 				</div>
 				<div class="row">
 					<div class="col">
@@ -42,29 +32,12 @@
 </main>
 
 <script>
-	document.querySelector('form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.querySelector('#email').value;
-        const password = document.querySelector('#password').value;
-		const totp_token = document.querySelector('#totp_token').value;
-		
-        const response = await fetch('/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password, totp_token })
-        });
-
-		// Redirect if response is redirected
-		if (response.redirected && response.url) {
-			window.location = response.url;
-			return;
-		}
-
-		// Display message
-        const data = await response.json();
-        alert(data.message);
-        return;
-    });
+	document.querySelector('form').addEventListener('submit', async (e) => { e.preventDefault();
+	const email = document.querySelector('#email').value; const password =
+	document.querySelector('#password').value; const totp_token =
+	document.querySelector('#totp_token').value; const response = await fetch('/login', { method:
+	'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password,
+	totp_token }) }); // Redirect if response is redirected if (response.redirected && response.url)
+	{ window.location = response.url; return; } // Display message const data = await
+	response.json(); alert(data.message); return; });
 </script>

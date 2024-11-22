@@ -19,9 +19,7 @@ export function groupAuthorization(allowedGroups: string[]) {
 		//console.log(verifyResult);
 
 		const userGroups = verifyResult.groups;
-		const isAllowed = userGroups.some((group) =>
-			allowedGroups.includes(group),
-		);
+		const isAllowed = userGroups.some((group) => allowedGroups.includes(group));
 
 		if (!isAllowed) {
 			res.status(403).send("Forbidden");

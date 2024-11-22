@@ -8,24 +8,21 @@
 						class="link-body-emphasis link-underline-opacity-0"
 					>
 						{{#if this.image_url}}
-							<img src="{{this.image_url}}" class="img-fluid rounded mb-2 article_thumbnail"/>
+							<img
+								src="{{this.image_url}}"
+								class="img-fluid rounded mb-2 article_thumbnail"
+							/>
 						{{/if}}
 						<h2>{{this.title}}</h2>
 					</a>
 					{{#each this.article_tag}}
-						<span
-							class="badge text-bg-info"
-						>{{this.tag.name}}</span>
+						<span class="badge text-bg-info">{{this.tag.name}}</span>
 					{{/each}}
 					<a
 						href="/article/{{this.article_id}}"
 						class="link-dark link-underline-opacity-0"
-					><p
-							class="article_content article_clamp"
-						>{{this.content}}</p></a>
-					<p class="fst-italic">{{convertDateForArticle
-							this.created_at
-						}}
+					><p class="article_content article_clamp">{{this.content}}</p></a>
+					<p class="fst-italic">{{convertDateForArticle this.created_at}}
 						by
 						{{this.users.name}}</p>
 

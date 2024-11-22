@@ -22,18 +22,26 @@
 						<td>{{this.name}}</td>
 						<td>{{this.email}}</td>
 						<td>
-                            {{#if this.totp_secret}}
-                                enabled
-                            {{/if}}
-                        </td>
-						<td>
-							{{#each this.user_group_member}}
-                                <span class="badge text-bg-secondary">{{this.user_group.name}}</span>
-                            {{/each}}
+							{{#if this.totp_secret}}
+								enabled
+							{{/if}}
 						</td>
 						<td>
-							<a href="/dashboard/edit_user/{{this.user_id}}" class="btn btn-warning btn-sm">Edit</a>
-							<a href="/dashboard/delete_user/{{this.user_id}}" class="btn btn-danger btn-sm">Delete</a>
+							{{#each this.user_group_member}}
+								<span
+									class="badge text-bg-secondary"
+								>{{this.user_group.name}}</span>
+							{{/each}}
+						</td>
+						<td>
+							<a
+								href="/dashboard/edit_user/{{this.user_id}}"
+								class="btn btn-warning btn-sm"
+							>Edit</a>
+							<a
+								href="/dashboard/delete_user/{{this.user_id}}"
+								class="btn btn-danger btn-sm"
+							>Delete</a>
 						</td>
 					</tr>
 				{{/each}}

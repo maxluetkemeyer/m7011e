@@ -14,7 +14,7 @@ router.get("/edit_users", async (_, res) => {
 				include: {
 					user_group: true,
 				},
-			}
+			},
 		},
 	});
 
@@ -33,7 +33,7 @@ router.get("/edit_user/:id", async (req, res) => {
 				include: {
 					user_group: true,
 				},
-			}
+			},
 		},
 	});
 
