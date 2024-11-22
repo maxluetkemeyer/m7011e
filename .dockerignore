@@ -1,0 +1,11 @@
+.devcontainer
+.vscode
+coverage
+node_modules
+privat
+uploads
+.env
+.env.example
+
+
+#dist

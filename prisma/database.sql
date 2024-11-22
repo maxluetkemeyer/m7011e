@@ -14,7 +14,7 @@ CREATE TABLE users (
     password_hash TEXT NOT NULL,
     salt TEXT NOT NULL,
     totp_secret TEXT
-)
+);
 
 CREATE TABLE user_group (
     group_id SERIAL PRIMARY KEY,
@@ -37,13 +37,13 @@ CREATE TABLE article (
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     user_id INT REFERENCES users(user_id) ON DELETE SET NULL ON UPDATE CASCADE
-)
+);
 
 CREATE TABLE tag (
     tag_id SERIAL PRIMARY KEY,
     name TEXT,
     color TEXT
-)
+);
 
 CREATE TABLE article_tag (
     article_id INT,

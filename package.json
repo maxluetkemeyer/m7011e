@@ -5,7 +5,7 @@
 	"main": "src/main.ts",
 	"type": "module",
 	"scripts": {
-		"run": "npx tsc && node dist/main.js",
+		"start": "npx tsc && node dist/main.js",
 		"dev": "npx nodemon --ext ts --exec 'tsc && node dist/main.js || exit 1'",
 		"test": "npx jest",
 		"run_old": "node --experimental-strip-types src/main.ts",
