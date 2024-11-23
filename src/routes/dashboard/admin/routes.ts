@@ -6,18 +6,22 @@ const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
 
 router.get("/edit_users", async (_, res) => {
-	const users = await prisma.users.findMany({
-		orderBy: {
-			user_id: "asc",
-		},
-		include: {
-			user_group_member: {
-				include: {
-					user_group: true,
+	const users = await prisma.users
+		.findMany({
+			orderBy: {
+				user_id: "asc",
+			},
+			include: {
+				user_group_member: {
+					include: {
+						user_group: true,
+					},
 				},
 			},
-		},
-	});
+		})
+		.catch((e) => {
+			console.error(e);
+		});
 
 	res.render("users/admin/edit_users", { users });
 });
@@ -25,18 +29,27 @@ router.get("/edit_users", async (_, res) => {
 router.get("/edit_user/:id", async (req, res) => {
 	const id = req.params.id;
 
-	const user = await prisma.users.findUnique({
-		where: {
-			user_id: parseInt(id),
-		},
-		include: {
-			user_group_member: {
-				include: {
-					user_group: true,
+	const user = await prisma.users
+		.findUnique({
+			where: {
+				user_id: parseInt(id),
+			},
+			include: {
+				user_group_member: {
+					include: {
+						user_group: true,
+					},
 				},
 			},
-		},
-	});
+		})
+		.catch((e) => {
+			console.error(e);
+		});
+
+	if(!user) {
+		res.status(404).render("404", { message: "User not found" });
+		return
+	}
 
 	res.render("users/admin/edit_user", { user });
 });
@@ -76,12 +89,21 @@ router.get("/delete_user/:id", async (req, res) => {
 		return;
 	}
 
-	//TODO: Check written articles condition!
-	await prisma.users.delete({
-		where: {
-			user_id: id,
-		},
-	});
+	const user = await prisma.users
+		.delete({
+			where: {
+				user_id: id,
+			},
+		})
+		.catch((e) => {
+			console.error(e);
+		});
+
+	if(!user){
+		res.status(404).render("404", { message: "User not found" });
+		return;
+	}
+
 
 	res.redirect("/dashboard/edit_users");
 });

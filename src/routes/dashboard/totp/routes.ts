@@ -19,7 +19,7 @@ router.get("/totp", async (req, res) => {
 	});
 
 	if (!user) {
-		res.status(400).send("User not found");
+		res.status(404).render("404", { message: "User not found" });
 		return;
 	}
 

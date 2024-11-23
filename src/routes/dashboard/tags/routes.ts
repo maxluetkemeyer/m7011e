@@ -32,7 +32,7 @@ router.post("/edit_tag/:id", async (req, res) => {
 		});
 
 	if (tag == null) {
-		res.send("Invalid request");
+		res.status(404).render("404", { message: "Tag not found" });
 		return;
 	}
 
@@ -53,7 +53,7 @@ router.get("/delete_tag/:id", async (req, res) => {
 		});
 
 	if (tag == null) {
-		res.send("Invalid request");
+		res.status(404).render("404", { message: "Tag not found" });
 		return;
 	}
 
@@ -72,7 +72,7 @@ router.get("/new_tag", async (_, res) => {
 		});
 
 	if (tag == null) {
-		res.send("Invalid request");
+		res.status(404).render("404", { message: "Invalid request" });
 		return;
 	}
 

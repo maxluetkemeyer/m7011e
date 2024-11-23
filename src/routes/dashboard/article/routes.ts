@@ -44,7 +44,7 @@ router.get("/edit_article/:id", async (req, res) => {
 	});
 
 	if (!article) {
-		res.status(404).send("Article not found");
+		res.status(404).render("404", { message: "Article not found" });
 		return;
 	}
 
