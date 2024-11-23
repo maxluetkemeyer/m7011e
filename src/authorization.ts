@@ -21,7 +21,7 @@ export function isLoggedIn(_: Request, res: Response, next: NextFunction) {
 	const jwtPayload = res.locals.my_jwtPayload as MyJWT;
 
 	if (!jwtPayload) {
-		res.status(404).render("404", { message: "You are not allowed to see this." });
+		res.status(404).render("404", { message: "Please log in to see this page." });
 		return;
 	}
 

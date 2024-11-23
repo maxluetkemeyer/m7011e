@@ -1,6 +1,5 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import { MyJWT } from "../../jwt.js";
 import { isLoggedIn } from "../../authorization.js";
 
 const router = express.Router({ mergeParams: true });
