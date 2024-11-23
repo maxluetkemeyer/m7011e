@@ -21,7 +21,7 @@ app.set("views", "./src/views/");
 // 	next();
 // });
 
-app.use(readJWTPayload());
+app.use(readJWTPayload);
 
 app.use("/static", express.static("src/static"));
 app.use("/", router);
