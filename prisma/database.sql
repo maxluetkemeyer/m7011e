@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS article_tag;
 DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS article;
 
+DROP TABLE IF EXISTS setting;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_group;
 
@@ -26,6 +27,12 @@ CREATE TABLE user_group_member (
     user_id INTEGER,
     PRIMARY KEY (group_id, user_id),
     FOREIGN KEY (group_id) REFERENCES user_group(group_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE setting (
+    load_images boolean DEFAULT TRUE,
+    user_id INTEGER PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

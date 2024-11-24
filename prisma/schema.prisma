@@ -58,5 +58,12 @@ model users {
   salt              String
   totp_secret       String?
   article           article[]
+  setting           setting?
   user_group_member user_group_member[]
+}
+
+model setting {
+  load_images Boolean? @default(true)
+  user_id     Int      @id
+  users       users    @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 }
