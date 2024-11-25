@@ -8,6 +8,7 @@
 		"start": "npx tsc && node dist/main.js",
 		"dev": "npx nodemon --ext ts --exec 'tsc && node dist/main.js || exit 1'",
 		"test": "jest --watch",
+		"build": "npx tsc",
 		"run_old": "node --experimental-strip-types src/main.ts",
 		"dev_old": "node --experimental-strip-types --watch src/main.ts",
 		"test_old": "jest"
