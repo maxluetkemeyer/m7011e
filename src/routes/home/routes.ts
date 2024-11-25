@@ -5,8 +5,8 @@ import { MyJWT } from "../../jwt.js";
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
 
-router.get("/", async (req, res) => {
-	const settings = await load_settings(res);
+router.get("/", async (_, res) => {
+	const my_user_settings = await load_settings(res);
 
 	const articles = await prisma.article.findMany({
 		include: {
@@ -26,7 +26,6 @@ router.get("/", async (req, res) => {
 	res.render("index", {
 		articles,
 		tags,
-		settings,
 		helpers: {
 			convertDateForArticle(dateString: string) {
 				const options: Intl.DateTimeFormatOptions = {
@@ -38,7 +37,7 @@ router.get("/", async (req, res) => {
 				return date.toLocaleDateString("en-US", options);
 			},
 			renderThumbnails(imageUrl: string) {
-				if (!settings.load_images) {
+				if (!my_user_settings.load_images) {
 					return false;
 				}
 
