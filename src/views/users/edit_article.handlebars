@@ -49,6 +49,19 @@
 			</select>
 		</div>
 		<div class="mb-3">
+			<label class="form-label">Tags</label><br />
+			{{#each tagsFromArticle}}
+				<input type="checkbox" id="my_tag_{{this.tag_id}}" name="my_tag_{{this.tag_id}}" checked>
+				<span class="badge my-tag" style="background-color: {{this.color}}">{{this.name}}</span>
+				
+			{{/each}}
+			<div class="mb-3"></div>
+			{{#each otherTags}}
+				<input type="checkbox" id="my_tag_{{this.tag_id}}" name="my_tag_{{this.tag_id}}">
+				<span class="badge my-tag" style="color: black; background-color: transparent; border: 1px solid black;">{{this.name}}</span>
+			{{/each}}
+		</div>
+		<div class="mb-3">
 			<label for="thumbnail" class="form-label">Thumbnail</label>
 			<input class="form-control" type="file" id="thumbnail" name="thumbnail"/>
 			<img src="{{article.image_url}}" class="img-fluid rounded mb-2 mt-2"/>

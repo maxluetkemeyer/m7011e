@@ -58,9 +58,31 @@ router.get("/edit_article/:id", async (req, res) => {
 		},
 	});
 
+	let otherTags = await prisma.tag.findMany({});
+	const tagsFromArticle = await prisma.tag.findMany({
+		where: {
+			article_tag: {
+				some: {
+					article_id: Number(req.params.id),
+				},
+			},
+		},
+	});
+
+	otherTags = otherTags.filter((tag) => {
+		for (const tagFromArticle of tagsFromArticle) {
+			if (tagFromArticle.tag_id === tag.tag_id) {
+				return false;
+			}
+		}
+		return true;
+	});
+
 	res.render("users/edit_article", {
 		article,
 		authors,
+		otherTags,
+		tagsFromArticle,
 		helpers: {
 			userIsAuthor(user_id: number) {
 				return article.user_id === user_id;
@@ -104,6 +126,32 @@ router.post("/edit_article/:id", upload.single("thumbnail"), async (req, res) =>
 		res.send("Invalid request");
 		return;
 	}
+
+	// Update tags
+	const tag_list: String[] = [];
+	for (const property in req.body) {
+		if (property.startsWith("my_tag_")) {
+			const tag_id = property.replace("my_tag_", "");
+			console.log(tag_id);
+			tag_list.push(tag_id);
+		}
+	}
+	await prisma.article_tag
+		.deleteMany({
+			where: {
+				article_id: id,
+			},
+		})
+		.then(async () => {
+			await prisma.article_tag.createMany({
+				data: tag_list.map((value, index, array) => {
+					return {
+						article_id: id,
+						tag_id: Number(value),
+					};
+				}),
+			});
+		});
 
 	res.redirect("/dashboard");
 });
