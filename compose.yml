@@ -18,7 +18,7 @@ services:
         depends_on:
             - db
         deploy:
-            endpoint_mode: dnsrr
+            endpoint_mode: vip # virtual ip for each replica
             mode: replicated
             replicas: 10
         env_file: ".env"
