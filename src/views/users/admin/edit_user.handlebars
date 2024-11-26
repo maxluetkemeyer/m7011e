@@ -12,7 +12,7 @@
 			<form
 				action="/dashboard/edit_user/{{user.user_id}}"
 				method="POST"
-				{{!-- enctype="multipart/form-data" --}}
+				{{! enctype="multipart/form-data" }}
 				id="edit_user_form"
 			>
 				<div class="mb-3">
@@ -37,31 +37,31 @@
 						required
 					/>
 				</div>
+				<div class="mb-3">
+					<label class="form-label">Groups</label><br />
+					{{#each groupsOfUser}}
+						<input
+							type="checkbox"
+							id="my_group_{{this.group_id}}"
+							name="my_group_{{this.group_id}}"
+							checked
+						/>
+						<span class="badge bg-secondary">{{this.name}}</span>
 
-				{{!-- <div class="mb-3">
-			<label for="user_id" class="form-label">Author</label>
-			<select
-				class="form-select"
-				id="user_id"
-				name="user_id"
-				form="edit_user_form"
-				required
-			>
-				{{#each authors}}
-					<option value="{{this.user_id}}" {{#if (userIsAuthor this.user_id)}}selected{{/if}} >{{this.name}}</option>
-				{{/each}}
-
-			</select>
-		</div> --}}
-
-
-				{{!-- <div class="mb-3">
-					<label for="avatar" class="form-label">Avatar</label>
-					<input class="form-control" type="file" id="avatar" name="avatar" />
-					<img src="{{user.avatar_url}}" class="img-fluid rounded mb-2 mt-2" />
-				</div> --}}
-
-
+					{{/each}}
+					<div class="mb-3"></div>
+					{{#each otherGroups}}
+						<input
+							type="checkbox"
+							id="my_group_{{this.group_id}}"
+							name="my_group_{{this.group_id}}"
+						/>
+						<span
+							class="badge my-tag"
+							style="color: black; background-color: transparent; border: 1px solid black;"
+						>{{this.name}}</span>
+					{{/each}}
+				</div>
 
 				<button type="submit" class="btn btn-primary">Save Changes</button>
 			</form>
