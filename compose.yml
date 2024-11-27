@@ -34,7 +34,7 @@ services:
         deploy:
             endpoint_mode: vip # virtual ip for each replica
             mode: replicated
-            replicas: 1
+            replicas: 3
         env_file: ".env"
 
     proxy:
