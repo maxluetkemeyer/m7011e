@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col">
 			<h2>Register</h2>
-			<form action="/register" method="post">
+			<form action="/auth/register" method="post">
 				<div class="mb-3">
 					<label for="username" class="form-label">Name</label>
 					<input type="text" class="form-control" id="username" name="username" />
@@ -26,7 +26,7 @@
 	document.querySelector('form').addEventListener('submit', async (e) => { e.preventDefault();
 	const username = document.querySelector('#username').value; const email =
 	document.querySelector('#email').value; const password =
-	document.querySelector('#password').value; const response = await fetch('/register', { method:
+	document.querySelector('#password').value; const response = await fetch('/auth/register', { method:
 	'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, email,
 	password }) }); // Redirect if response is redirected if (response.redirected && response.url) {
 	window.location = response.url; return; } // Display message const data = await response.json();
