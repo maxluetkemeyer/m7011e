@@ -44,17 +44,6 @@ export function groupAuthorization(allowedGroupLevel: string) {
 	};
 }
 
-export function isLoggedIn(_: Request, res: Response, next: NextFunction) {
-	const jwtPayload = res.locals.my_jwtPayload as MyJWT;
-
-	if (!jwtPayload) {
-		res.status(404).render("404", { message: "Please log in to see this page." });
-		return;
-	}
-
-	next();
-}
-
 export async function readJWTPayload(req: Request, res: Response, next: NextFunction) {
 	const cookies = req.cookies;
 	//console.log(cookies);

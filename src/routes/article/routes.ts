@@ -1,6 +1,6 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import { groupAuthorization, isLoggedIn } from "../../authorization.js";
+import { groupAuthorization } from "../../authorization.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
