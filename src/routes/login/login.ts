@@ -35,9 +35,10 @@ export async function login(email: string, password: string): Promise<string | u
 		where: {
 			email,
 		},
-	});
 
-	console.log(user); //user_group_member[0].user_group.name
+	}).catch((e) => {
+		console.log(e);
+	});
 
 	if (user == null) {
 		return "User not found";

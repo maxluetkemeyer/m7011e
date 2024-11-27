@@ -53,7 +53,10 @@ router.post("/", async (req, res) => {
 		maxAge: 1000 * 60 * 15,
 	}); //15 minutes
 
-	res.redirect("/dashboard");
+	
+	
+
+	res.redirect("/");
 });
 
 export default router;
