@@ -1,12 +1,39 @@
 import { Request, Response, NextFunction } from "express";
 import { MyJWT, signJWT, verifyJWT } from "./jwt.js";
 
-export function groupAuthorization(allowedGroups: string[]) {
+export function groupAuthorization(allowedGroupLevel: string) {
 	return async (_: Request, res: Response, next: NextFunction) => {
 		const jwtPayload = res.locals.my_jwtPayload as MyJWT;
+		console.log(jwtPayload);
 
 		const userGroups = jwtPayload.groups;
-		const isAllowed = userGroups.some((group) => allowedGroups.includes(group));
+		//const isAllowed = userGroups.some((group) => allowedGroups.includes(group));
+		let isAllowed = false;
+
+		if (allowedGroupLevel === "admin") {
+			for (const group of userGroups) {
+				console.log(group);
+				if (group === "admin") {
+					isAllowed = true;
+				}
+			}
+		}
+		if (allowedGroupLevel === "author") {
+			for (const group of userGroups) {
+				console.log(group);
+				if (group === "admin" || group === "author") {
+					isAllowed = true;
+				}
+			}
+		}
+		if (allowedGroupLevel === "reader") {
+			for (const group of userGroups) {
+				console.log(group);
+				if (group === "admin" || group === "author" || group === "reader") {
+					isAllowed = true;
+				}
+			}
+		}
 
 		if (!isAllowed) {
 			res.status(404).render("404", { message: "You are not allowed to see this." });

@@ -60,7 +60,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // CREATE
-router.post("/", groupAuthorization(["author, admin"]), async (req, res) => {
+router.post("/", groupAuthorization("author"), async (req, res) => {
 	const article = await prisma.article
 		.create({
 			data: {
@@ -83,7 +83,7 @@ router.post("/", groupAuthorization(["author, admin"]), async (req, res) => {
 });
 
 // UPDATE
-router.put("/:id", groupAuthorization(["author, admin"]), async (req, res) => {
+router.put("/:id", groupAuthorization("author"), async (req, res) => {
 	const id = parseInt(req.params.id);
 
 	const article = await prisma.article
@@ -113,7 +113,7 @@ router.put("/:id", groupAuthorization(["author, admin"]), async (req, res) => {
 });
 
 // DELETE
-router.delete("/:id", groupAuthorization(["author, admin"]), async (req, res) => {
+router.delete("/:id", groupAuthorization("author"), async (req, res) => {
 	const article = await prisma.article
 		.delete({
 			where: {

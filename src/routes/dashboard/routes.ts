@@ -10,7 +10,7 @@ import tagRouter from "./tags/routes.js";
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
 
-router.use(groupAuthorization(["admin"]), adminRouter);
+router.use(groupAuthorization("admin"), adminRouter);
 router.use(totpRouter);
 router.use(articleRouter);
 router.use(tagRouter);

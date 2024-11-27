@@ -13,8 +13,8 @@ const router = Router({ mergeParams: true });
 router.use("/article_tag", articleTag);
 router.use("/article", article);
 router.use("/tag", tag);
-router.use("/users", groupAuthorization(["admin"]), users);
-router.use("/user_group", groupAuthorization(["admin"]), user_group);
-router.use("/user_group_member", groupAuthorization(["admin"]), user_group_member);
+router.use("/users", groupAuthorization("admin"), users);
+router.use("/user_group", groupAuthorization("admin"), user_group);
+router.use("/user_group_member", groupAuthorization("admin"), user_group_member);
 
 export default router;

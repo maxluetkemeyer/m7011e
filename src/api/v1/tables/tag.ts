@@ -46,7 +46,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // CREATE
-router.post("/", groupAuthorization(["author, admin"]), async (req, res) => {
+router.post("/", groupAuthorization("author"), async (req, res) => {
 	const tag = await prisma.tag
 		.create({
 			data: {
@@ -66,7 +66,7 @@ router.post("/", groupAuthorization(["author, admin"]), async (req, res) => {
 });
 
 // UPDATE
-router.put("/:id", groupAuthorization(["author, admin"]), async (req, res) => {
+router.put("/:id", groupAuthorization("author"), async (req, res) => {
 	const tag = await prisma.tag
 		.update({
 			where: {
@@ -89,7 +89,7 @@ router.put("/:id", groupAuthorization(["author, admin"]), async (req, res) => {
 });
 
 // DELETE
-router.delete("/:id", groupAuthorization(["author, admin"]), async (req, res) => {
+router.delete("/:id", groupAuthorization("author"), async (req, res) => {
 	const tag = await prisma.tag
 		.delete({
 			where: {

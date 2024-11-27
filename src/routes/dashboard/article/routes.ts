@@ -15,6 +15,7 @@ router.get("/new_article", async (_, res) => {
 		data: {
 			title: "New Article",
 			user_id: jwtPayload.user_id,
+			created_at: new Date(),
 		},
 	});
 

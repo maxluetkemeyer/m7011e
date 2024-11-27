@@ -1,11 +1,11 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import { isLoggedIn } from "../../authorization.js";
+import { groupAuthorization, isLoggedIn } from "../../authorization.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
 
-router.get("/:id", isLoggedIn, async (req, res) => {
+router.get("/:id", groupAuthorization("reader"), async (req, res) => {
 	const article = await prisma.article.findUnique({
 		where: {
 			article_id: Number(req.params.id),
