@@ -44,16 +44,31 @@ router.get("/edit_user/:id", async (req, res) => {
 		return;
 	}
 
-	let otherGroups = await prisma.user_group.findMany();
-	const groupsOfUser = await prisma.user_group.findMany({
-		where: {
-			user_group_member: {
-				some: {
-					user_id: parseInt(id),
+	let otherGroups = await prisma.user_group.findMany().catch((e) => {
+		console.log(e);
+	});
+	const groupsOfUser = await prisma.user_group
+		.findMany({
+			where: {
+				user_group_member: {
+					some: {
+						user_id: parseInt(id),
+					},
 				},
 			},
-		},
-	});
+		})
+		.catch((e) => {
+			console.log(e);
+		});
+
+	if (!otherGroups) {
+		res.status(404).render("404", { message: "Invalid" });
+		return;
+	}
+	if (!groupsOfUser) {
+		res.status(404).render("404", { message: "Invalid" });
+		return;
+	}
 
 	otherGroups = otherGroups.filter((group) => {
 		for (const groupOfUser of groupsOfUser) {
@@ -97,13 +112,14 @@ router.post("/edit_user/:id", async (req, res) => {
 			group_id_list.push(group_id);
 		}
 	}
-	
+
 	await prisma.user_group_member
 		.deleteMany({
 			where: {
 				user_id: id,
 			},
 		})
+
 		.then(async () => {
 			await prisma.user_group_member.createMany({
 				data: group_id_list.map((value, _, __) => {
@@ -113,6 +129,9 @@ router.post("/edit_user/:id", async (req, res) => {
 					};
 				}),
 			});
+		})
+		.catch((e) => {
+			console.log(e);
 		});
 
 	res.redirect("/dashboard/edit_users");

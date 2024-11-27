@@ -8,20 +8,27 @@ const prisma = new PrismaClient();
 router.get("/", async (_, res) => {
 	const my_user_settings = await load_settings(res);
 
-	const articles = await prisma.article.findMany({
-		include: {
-			users: true,
-			article_tag: {
-				include: {
-					tag: true,
+	const articles = await prisma.article
+		.findMany({
+			include: {
+				users: true,
+				article_tag: {
+					include: {
+						tag: true,
+					},
 				},
 			},
-		},
-		orderBy: {
-			created_at: "desc",
-		},
+			orderBy: {
+				created_at: "desc",
+			},
+		})
+		.catch((e) => {
+			console.log(e);
+		});
+
+	const tags = await prisma.tag.findMany().catch((e) => {
+		console.log(e);
 	});
-	const tags = await prisma.tag.findMany();
 
 	res.render("index", {
 		articles,

@@ -14,7 +14,7 @@ export async function getJWT(user: users): Promise<string> {
 		include: {
 			user_group: true,
 		},
-	});
+	})
 
 	const groupNames = groups
 		.map((group) => group.user_group.name)

@@ -11,13 +11,22 @@ const upload = multer({ storage: multer.memoryStorage() });
 router.get("/new_article", async (_, res) => {
 	const jwtPayload = res.locals.my_jwtPayload as MyJWT;
 
-	const article = await prisma.article.create({
-		data: {
-			title: "New Article",
-			user_id: jwtPayload.user_id,
-			created_at: new Date(),
-		},
-	});
+	const article = await prisma.article
+		.create({
+			data: {
+				title: "New Article",
+				user_id: jwtPayload.user_id,
+				created_at: new Date(),
+			},
+		})
+		.catch((e) => {
+			console.log(e);
+		});
+
+	if (!article) {
+		res.status(404).render("404", { message: "Article not found" });
+		return;
+	}
 
 	res.redirect(`/dashboard/edit_article/${article.article_id}`);
 });
@@ -25,50 +34,77 @@ router.get("/new_article", async (_, res) => {
 router.get("/delete_article/:id", async (req, res) => {
 	const id = parseInt(req.params.id);
 
-	await prisma.article.delete({
-		where: {
-			article_id: id,
-		},
-	});
+	await prisma.article
+		.delete({
+			where: {
+				article_id: id,
+			},
+		})
+		.catch((e) => {
+			console.log(e);
+		});
 
 	res.redirect("/dashboard");
 });
 
 router.get("/edit_article/:id", async (req, res) => {
-	const article = await prisma.article.findUnique({
-		where: {
-			article_id: Number(req.params.id),
-		},
-		include: {
-			users: true,
-		},
-	});
+	const article = await prisma.article
+		.findUnique({
+			where: {
+				article_id: Number(req.params.id),
+			},
+			include: {
+				users: true,
+			},
+		})
+		.catch((e) => {
+			console.log(e);
+		});
 
 	if (!article) {
 		res.status(404).render("404", { message: "Article not found" });
 		return;
 	}
 
-	const authors = await prisma.users.findMany({
-		where: {
-			user_group_member: {
-				some: {
-					group_id: 2,
+	const authors = await prisma.users
+		.findMany({
+			where: {
+				user_group_member: {
+					some: {
+						group_id: 2,
+					},
 				},
 			},
-		},
-	});
+		})
+		.catch((e) => {
+			console.log(e);
+		});
 
-	let otherTags = await prisma.tag.findMany({});
-	const tagsFromArticle = await prisma.tag.findMany({
-		where: {
-			article_tag: {
-				some: {
-					article_id: Number(req.params.id),
+	let otherTags = await prisma.tag.findMany({}).catch((e) => {
+		console.log(e);
+	});
+	const tagsFromArticle = await prisma.tag
+		.findMany({
+			where: {
+				article_tag: {
+					some: {
+						article_id: Number(req.params.id),
+					},
 				},
 			},
-		},
-	});
+		})
+		.catch((e) => {
+			console.log(e);
+		});
+
+	if (!otherTags) {
+		res.status(404).render("404", { message: "Tags not found" });
+		return;
+	}
+	if (!tagsFromArticle) {
+		res.status(404).render("404", { message: "Tags not found" });
+		return;
+	}
 
 	otherTags = otherTags.filter((tag) => {
 		for (const tagFromArticle of tagsFromArticle) {
@@ -152,6 +188,9 @@ router.post("/edit_article/:id", upload.single("thumbnail"), async (req, res) =>
 					};
 				}),
 			});
+		})
+		.catch((e) => {
+			console.log(e);
 		});
 
 	res.redirect("/dashboard");

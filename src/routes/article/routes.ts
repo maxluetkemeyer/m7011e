@@ -6,19 +6,23 @@ const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
 
 router.get("/:id", groupAuthorization("reader"), async (req, res) => {
-	const article = await prisma.article.findUnique({
-		where: {
-			article_id: Number(req.params.id),
-		},
-		include: {
-			users: true,
-			article_tag: {
-				include: {
-					tag: true,
+	const article = await prisma.article
+		.findUnique({
+			where: {
+				article_id: Number(req.params.id),
+			},
+			include: {
+				users: true,
+				article_tag: {
+					include: {
+						tag: true,
+					},
 				},
 			},
-		},
-	});
+		})
+		.catch((e) => {
+			console.log(e);
+		});
 
 	if (!article) {
 		res.status(404).render("404", { message: "Article not found" });

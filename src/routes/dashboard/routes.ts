@@ -16,19 +16,23 @@ router.use(articleRouter);
 router.use(tagRouter);
 
 router.get("/", async (_, res) => {
-	const articles = await prisma.article.findMany({
-		include: {
-			users: true,
-			article_tag: {
-				include: {
-					tag: true,
+	const articles = await prisma.article
+		.findMany({
+			include: {
+				users: true,
+				article_tag: {
+					include: {
+						tag: true,
+					},
 				},
 			},
-		},
-		orderBy: {
-			created_at: "desc",
-		},
-	});
+			orderBy: {
+				created_at: "desc",
+			},
+		})
+		.catch((e) => {
+			console.log(e);
+		});
 
 	const jwtPayload = res.locals.my_jwtPayload as MyJWT;
 	const user_name = jwtPayload.name;

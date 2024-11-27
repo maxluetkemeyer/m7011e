@@ -12,11 +12,15 @@ router.get("/totp", async (req, res) => {
 	const email = jwtPayload.email;
 	const user_id = jwtPayload.user_id;
 
-	const user = await prisma.users.findUnique({
-		where: {
-			user_id,
-		},
-	});
+	const user = await prisma.users
+		.findUnique({
+			where: {
+				user_id,
+			},
+		})
+		.catch((e) => {
+			console.log(e);
+		});
 
 	if (!user) {
 		res.status(404).render("404", { message: "User not found" });
@@ -54,14 +58,18 @@ router.post("/totp", async (req, res) => {
 		return;
 	}
 
-	await prisma.users.update({
-		where: {
-			user_id,
-		},
-		data: {
-			totp_secret,
-		},
-	});
+	await prisma.users
+		.update({
+			where: {
+				user_id,
+			},
+			data: {
+				totp_secret,
+			},
+		})
+		.catch((e) => {
+			console.log(e);
+		});
 
 	res.redirect("/dashboard");
 });
@@ -70,14 +78,18 @@ router.delete("/totp", async (_, res) => {
 	const jwtPayload = res.locals.my_jwtPayload as MyJWT;
 	const user_id = jwtPayload.user_id;
 
-	await prisma.users.update({
-		where: {
-			user_id,
-		},
-		data: {
-			totp_secret: null,
-		},
-	});
+	await prisma.users
+		.update({
+			where: {
+				user_id,
+			},
+			data: {
+				totp_secret: null,
+			},
+		})
+		.catch((e) => {
+			console.log(e);
+		});
 
 	res.redirect("/dashboard");
 });
