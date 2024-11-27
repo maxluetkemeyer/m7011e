@@ -7,10 +7,18 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-app:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag ltu-web-app:$(date +%s)
+
+  build-auth:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file ./auth/Dockerfile --tag ltu-web-app:$(date +%s)

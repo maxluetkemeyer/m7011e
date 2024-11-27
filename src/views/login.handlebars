@@ -1,7 +1,7 @@
 <main class="container">
 	<div class="row">
 		<div class="col">
-			<form action="/login" method="post">
+			<form action="/auth/login" method="post">
 				<div class="mb-3">
 					<label for="email" class="form-label">Email</label>
 					<input type="email" class="form-control" id="email" name="email" />
@@ -35,7 +35,7 @@
 	document.querySelector('form').addEventListener('submit', async (e) => { e.preventDefault();
 	const email = document.querySelector('#email').value; const password =
 	document.querySelector('#password').value; const totp_token =
-	document.querySelector('#totp_token').value; const response = await fetch('/login', { method:
+	document.querySelector('#totp_token').value; const response = await fetch('/auth/login', { method:
 	'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password,
 	totp_token }) }); // Redirect if response is redirected if (response.redirected && response.url)
 	{ window.location = response.url; return; } // Display message const data = await

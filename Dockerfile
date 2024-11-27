@@ -1,6 +1,8 @@
 # Build stage ###################################################
 FROM node:23.1.0-alpine AS build
 
+ENV USE_AUTH=False
+
 WORKDIR /srv
 
 COPY package*.json .
@@ -15,6 +17,8 @@ RUN npm run build
 
 # Production stage ###################################################
 FROM node:23.1.0-alpine AS production
+
+ENV USE_AUTH=False
 
 WORKDIR /srv
 
@@ -35,4 +39,4 @@ COPY --from=build /srv/src ./src
 EXPOSE 3000
 
 # Run the application.
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]

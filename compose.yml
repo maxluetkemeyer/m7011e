@@ -17,10 +17,24 @@ services:
         restart: unless-stopped
         depends_on:
             - db
+            - auth
         deploy:
             endpoint_mode: vip # virtual ip for each replica
             mode: replicated
             replicas: 10
+        env_file: ".env"
+
+    auth:
+        build:
+            context: .
+            dockerfile: ./auth/Dockerfile
+        restart: unless-stopped
+        depends_on:
+            - db
+        deploy:
+            endpoint_mode: vip # virtual ip for each replica
+            mode: replicated
+            replicas: 3
         env_file: ".env"
 
     proxy:
