@@ -40,6 +40,14 @@ app.use("/", router);
 // Route every request to "/api/v1" to the api router
 app.use("/api/v1", api_router);
 
+import { app as authApp } from "../auth/app.js";
+const USE_AUTH = process.env.USE_AUTH;
+
+// Auth for development
+if (USE_AUTH !== "False") {
+	app.use(authApp);
+}
+
 // 404 not found
 app.use((_, res) => {
 	res.status(404).render("404");

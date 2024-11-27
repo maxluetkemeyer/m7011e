@@ -49,6 +49,8 @@ router.post("/", async (req, res) => {
 		maxAge: 1000 * 60 * 15,
 	}); //15 minutes
 
+	console.log("Successful login")
+
 	res.redirect("/");
 });
 
