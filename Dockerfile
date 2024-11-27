@@ -35,4 +35,4 @@ COPY --from=build /srv/src ./src
 EXPOSE 3000
 
 # Run the application.
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]
