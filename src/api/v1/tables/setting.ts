@@ -1,113 +1,111 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
-import { groupAuthorization } from "../../../authorization.js";
 
 const router = express.Router({ mergeParams: true });
 const prisma = new PrismaClient();
 
 // READ All
 router.get("/", async (_, res) => {
-	const tags = await prisma.tag
+	const settings = await prisma.setting
 		.findMany({
 			orderBy: {
-				tag_id: "asc",
+				user_id: "asc",
 			},
 		})
 		.catch((e) => {
 			console.error(e);
 		});
 
-	if (tags == null) {
+	if (settings == null) {
 		res.status(400).json({ message: "Invalid request" });
 		return;
 	}
 
-	res.json(tags);
+	res.json(settings);
 });
 
 // READ specific
-router.get("/:id", async (req, res) => {
-	const tag = await prisma.tag
+router.get("/:userid", async (req, res) => {
+	const setting = await prisma.setting
 		.findUnique({
 			where: {
-				tag_id: parseInt(req.params.id),
+				user_id: parseInt(req.params.userid),
 			},
 		})
 		.catch((e) => {
 			console.error(e);
 		});
 
-	if (tag == null) {
+	if (setting == null) {
 		res.status(400).json({ message: "Invalid request" });
 		return;
 	}
 
-	res.json(tag);
+	res.json(setting);
 });
 
 // CREATE
-router.post("/", groupAuthorization("author"), async (req, res) => {
-	const tag = await prisma.tag
+router.post("/", async (req, res) => {
+	const setting = await prisma.setting
 		.create({
 			data: {
-				name: req.body.name,
-				color: req.body.color,
+				load_images: req.body.load_images,
+                user_id: parseInt(req.body.user_id)
 			},
 		})
 		.catch((e) => {
 			console.error(e);
 		});
 
-	if (tag == null) {
+	if (setting == null) {
 		res.status(400).json({ message: "Invalid request" });
 		return;
 	}
 
-	res.json(tag);
+	res.json(setting);
 });
 
 // UPDATE
-router.put("/:id", groupAuthorization("author"), async (req, res) => {
-	const tag = await prisma.tag
+router.put("/:userid", async (req, res) => {
+	const setting = await prisma.setting
 		.update({
 			where: {
-				tag_id: parseInt(req.params.id),
+				user_id: parseInt(req.params.userid),
 			},
 			data: {
-				name: req.body.name,
-				color: req.body.color,
+				load_images: req.body.load_images,
 			},
 		})
 		.catch((e) => {
 			console.error(e);
 		});
 
-	if (tag == null) {
+	if (setting == null) {
 		res.status(400).json({ message: "Invalid request" });
 		return;
 	}
 
-	res.json(tag);
+	res.json(setting);
 });
 
 // DELETE
-router.delete("/:id", groupAuthorization("author"), async (req, res) => {
-	const tag = await prisma.tag
+router.delete("/:userid", async (req, res) => {
+	const setting = await prisma.setting
 		.delete({
 			where: {
-				tag_id: parseInt(req.params.id),
+				user_id: parseInt(req.params.userid),
 			},
 		})
 		.catch((e) => {
 			console.error(e);
 		});
 
-	if (tag == null) {
+	if (setting == null) {
 		res.status(400).json({ message: "Invalid request" });
 		return;
 	}
 
-	res.json(tag);
+	res.json(setting);
 });
 
 export default router;

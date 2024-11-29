@@ -77,6 +77,7 @@ router.post("/", async (req, res) => {
 				email: req.body.email,
 				password_hash: password_hash,
 				salt: req.body.salt,
+				totp_secret: req.body.totp_secret,
 			},
 		})
 		.catch((e) => {
@@ -110,6 +111,7 @@ router.put("/:id", async (req, res) => {
 				email: req.body.email,
 				password_hash: password_hash,
 				salt: salt,
+				totp_secret: req.body.totp_secret,
 			},
 		})
 		.catch((e) => {

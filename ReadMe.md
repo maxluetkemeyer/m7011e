@@ -60,6 +60,12 @@ docker compose up --build -d
 docker compose logs --follow
 ```
 
+## Usage
+- Basic Account when run the first time:
+  - email: mail@invalid
+  - password: hello123
+
+
 ## Background information
 - https://expressjs.com/en/starter/hello-world.html
 - https://handlebarsjs.com/guide/#what-is-handlebars

@@ -66,7 +66,9 @@ router.post("/", groupAuthorization("author"), async (req, res) => {
 			data: {
 				title: req.body.title,
 				content: req.body.content,
+				image_url: req.body.image_url,
 				created_at: new Date(),
+				updated_at: new Date(),
 				user_id: req.body.user_id,
 			},
 		})
