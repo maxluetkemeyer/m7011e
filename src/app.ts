@@ -5,6 +5,7 @@ import { engine } from "express-handlebars";
 import bodyparser from "body-parser";
 import cookieParser from "cookie-parser";
 import { readJWTPayload } from "./authorization.js";
+import { appConfiguration } from "./config.js";
 
 export const app = express();
 
@@ -40,13 +41,7 @@ app.use("/", router);
 // Route every request to "/api/v1" to the api router
 app.use("/api/v1", api_router);
 
-import { app as authApp } from "../auth/app.js";
-const USE_AUTH = process.env.USE_AUTH;
-
-// Auth for development
-if (USE_AUTH !== "False") {
-	app.use(authApp);
-}
+appConfiguration(app);
 
 // 404 not found
 app.use((_, res) => {

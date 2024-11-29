@@ -27,6 +27,12 @@ nvm use 23.1.0
 npx prisma generate
 ```
 
+- Edit the .env like described in the .env.example file
+  - Change google configuration
+  - Decide, whether the auth routes should be included in the normal app server
+
+- Place your service_account_key.json from your Google Cloud project in the folder "privat/service_account_key.json"
+
 - Start the dev runtime
 ```bash
 npm run dev
