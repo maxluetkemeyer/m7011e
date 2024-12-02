@@ -52,7 +52,7 @@ async function getTOTPSecretFromAuthService() {
 		return;
 	}
 
-	const responseJson = response.json() as any;
+	const responseJson = await response.json();
 	const totp_secret = responseJson.totp_secret;
 
 	if (!totp_secret || totp_secret === "") {
