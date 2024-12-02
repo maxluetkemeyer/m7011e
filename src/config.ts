@@ -43,10 +43,12 @@ async function getTOTPSecretFromAuthService() {
 		console.log(e);
 	});
 
+	console.log("totp response", response)
+
 	if(!response){
 		console.log("Could not get totp secret, trying again...");
 		await sleep(2000);
-		getTOTPSecretFromAuthService();
+		await getTOTPSecretFromAuthService();
 		return;
 	}
 
@@ -56,7 +58,7 @@ async function getTOTPSecretFromAuthService() {
 	if (!totp_secret || totp_secret === "") {
 		console.log("Could not get totp secret, trying again...");
 		await sleep(2000);
-		getTOTPSecretFromAuthService();
+		await getTOTPSecretFromAuthService();
 		return;
 	}
 
