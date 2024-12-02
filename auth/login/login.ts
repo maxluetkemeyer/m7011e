@@ -1,9 +1,11 @@
 import { PrismaClient, users } from "@prisma/client";
-import { randomBytes, scrypt } from "node:crypto";
+import { createSecretKey, randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
 import { signJWT } from "../../src/jwt.js";
+import { TOTP_SECRET } from "../app_internal.js";
 
 const prisma = new PrismaClient();
+const secretKeyLive = createSecretKey(TOTP_SECRET, "utf-8");
 
 export async function getJWT(user: users): Promise<string> {
 	// JWT
@@ -20,12 +22,15 @@ export async function getJWT(user: users): Promise<string> {
 		.map((group) => group.user_group.name)
 		.filter((name): name is string => name !== null);
 
-	const jwt = await signJWT({
-		user_id: user.user_id,
-		name: user.name,
-		email: user.email,
-		groups: groupNames,
-	});
+	const jwt = await signJWT(
+		{
+			user_id: user.user_id,
+			name: user.name,
+			email: user.email,
+			groups: groupNames,
+		},
+		secretKeyLive,
+	);
 
 	return jwt;
 }

@@ -1,8 +1,10 @@
-import { createSecretKey } from "crypto";
+import { createSecretKey, KeyObject } from "crypto";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
+import { StorageSingleton } from "./store.js";
+import assert from "node:assert";
 
-const MY_SECRET = "Hello, World!";
-const secretKey = createSecretKey(MY_SECRET, "utf-8");
+const secretKeyLive = createSecretKey(StorageSingleton.instance.JWT_SECRET, "utf-8");
+assert(StorageSingleton.instance.JWT_SECRET != "");
 
 export interface MyJWT extends JWTPayload {
 	user_id: number;
@@ -11,7 +13,10 @@ export interface MyJWT extends JWTPayload {
 	groups: string[];
 }
 
-export async function signJWT(payload: MyJWT): Promise<string> {
+export async function signJWT(
+	payload: MyJWT,
+	secretKey: KeyObject = secretKeyLive,
+): Promise<string> {
 	const token = await new SignJWT(payload) // details to  encode in the token
 		.setProtectedHeader({
 			alg: "HS256",
@@ -26,7 +31,10 @@ export async function signJWT(payload: MyJWT): Promise<string> {
 	return token;
 }
 
-export async function verifyJWT(jwt: string): Promise<string | MyJWT> {
+export async function verifyJWT(
+	jwt: string,
+	secretKey: KeyObject = secretKeyLive,
+): Promise<string | MyJWT> {
 	// extract token from request
 	//const token = req.header("Authorization").replace("Bearer ", "");
 	const token = jwt;

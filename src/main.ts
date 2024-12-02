@@ -1,8 +1,9 @@
 import { configure } from "./config.js";
-import { app } from "./app.js";
 
-configure();
+await configure();
+const app = (await import("./app.js")).app;
 
-app.listen(3000, () => {
-	console.log(`[APP] Listening on 3000`);
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+	console.log(`[APP] Listening on ${PORT}`);
 });

@@ -1,11 +1,13 @@
 import express from "express";
+import assert from "node:assert";
+import { StorageSingleton } from "./store.js";
 import router from "./routes/routes.js";
 import api_router from "./api/v1/api_routes.js";
 import { engine } from "express-handlebars";
 import bodyparser from "body-parser";
 import cookieParser from "cookie-parser";
 import { readJWTPayload } from "./authorization.js";
-import { appConfiguration } from "./config.js";
+import { appConfiguration } from "./config_app.js";
 
 export const app = express();
 
@@ -41,7 +43,8 @@ app.use("/", router);
 // Route every request to "/api/v1" to the api router
 app.use("/api/v1", api_router);
 
-appConfiguration(app);
+await appConfiguration(app);
+assert(StorageSingleton.instance.JWT_SECRET !== "");
 
 // 404 not found
 app.use((_, res) => {
