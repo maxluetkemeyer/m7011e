@@ -1,11 +1,41 @@
 import { describe, expect, test } from "@jest/globals";
 // @ts-ignore
-import { totp_to_url, generateTOTPSecret } from "./totp";
+import { totp_to_url, generateTOTPSecret, validateToken } from "./totp";
 
 describe("validateToken", () => {
-	test("happy path", () => {});
+	test("correct token", () => {
+		// 30s = 30_000ms
+		const secret = "BH457RTCZ6EQTWDS7JZDCMFZHZC4CC76";
+		const token = "025261"; // timestamp: 100_000_000
+		const account = "my_account";
 
-	test("unhappy path", () => {});
+		const validDirect = validateToken(token, secret, account, 100_000_000);
+		const validShortAfter = validateToken(token, secret, account, 100_000_001);
+		const validEndOfPeriod = validateToken(token, secret, account, 100_030_000);
+		const validEndOfWindow = validateToken(token, secret, account, 100_049_999);
+		const validEarliestPossible = validateToken(token, secret, account, 99_960_000);
+
+		const invalidTooLate = validateToken(token, secret, account, 100_050_000);
+		const invalidTooEarly = validateToken(token, secret, account, 99_959_999);
+
+		expect(validDirect).toBeTruthy();
+		expect(validShortAfter).toBeTruthy();
+		expect(validEndOfPeriod).toBeTruthy();
+		expect(validEndOfWindow).toBeTruthy();
+		expect(validEarliestPossible).toBeTruthy();
+		expect(invalidTooLate).toBeFalsy();
+		expect(invalidTooEarly).toBeFalsy();
+	});
+
+	test("wrong token", () => {
+		const secret = "BH457RTCZ6EQTWDS7JZDCMFZHZC4CC76";
+		const token = "025262"; // correct would be 025261
+		const account = "my_account";
+
+		const invalidDirect = validateToken(token, secret, account, 100_000_000);
+
+		expect(invalidDirect).toBeFalsy();
+	});
 });
 
 describe("generateTOTPSecret", () => {
@@ -32,18 +62,12 @@ describe("generateTOTPSecret", () => {
 });
 
 describe("totp_to_url", () => {
-	test("should return a string", () => {
-		expect(typeof "string").toBe("string");
-	});
-
 	test("check params", () => {
 		const secret: string = generateTOTPSecret();
 
 		const got: string = totp_to_url(secret, "my_account");
-		console.log(got);
 
 		const parts = got.split("?");
-		const base = parts[0];
 		const paramString = parts[1];
 		const paramList = paramString.split("&");
 		const params: any = {};
@@ -55,8 +79,6 @@ describe("totp_to_url", () => {
 
 			params[key] = value;
 		}
-
-		console.log(params);
 
 		const checkIssuer = params.issuer === "Lulea%20Newspaper";
 		const checkSecret = params.secret === secret.toString();
@@ -75,18 +97,14 @@ describe("totp_to_url", () => {
 		const secret: string = generateTOTPSecret();
 
 		const got: string = totp_to_url(secret, "my_account");
-		console.log(got);
 
 		const parts = got.split("?");
 		const base = parts[0];
-		
-		console.log(base)
 
-		const checkStart = base.startsWith("otpauth://totp/Lulea%20Newspaper:")
-		const checkAccount = base.endsWith("my_account")
+		const checkStart = base.startsWith("otpauth://totp/Lulea%20Newspaper:");
+		const checkAccount = base.endsWith("my_account");
 
 		expect(checkStart).toBeTruthy();
 		expect(checkAccount).toBeTruthy();
-
 	});
 });

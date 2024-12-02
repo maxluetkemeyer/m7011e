@@ -66,6 +66,17 @@ docker compose logs --follow
   - password: hello123
 
 
+## Testing
+- Run Unit tests
+```bash
+npm test
+```
+
+- Get test coverage
+```bash
+npx jest --coverage
+```
+
 ## Background information
 - https://expressjs.com/en/starter/hello-world.html
 - https://handlebarsjs.com/guide/#what-is-handlebars

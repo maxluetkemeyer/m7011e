@@ -1,6 +1,6 @@
 import * as OTPAuth from "otpauth";
 
-export function validateToken(token: string, secret: string, account: string) {
+export function validateToken(token: string, secret: string, account: string, timestamp: number = Date.now()) {
 	const totp = new OTPAuth.TOTP({
 		// Provider or service the account is associated with.
 		issuer: "Lulea Newspaper",
@@ -21,7 +21,7 @@ export function validateToken(token: string, secret: string, account: string) {
 		//   or: `new OTPAuth.Secret()`
 	});
 
-	const delta = totp.validate({ token: token, window: 1 });
+	const delta = totp.validate({ token: token, window: 1, timestamp });
 
 	if (delta === null) {
 		return false;
