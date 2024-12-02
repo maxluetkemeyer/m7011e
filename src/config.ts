@@ -62,7 +62,7 @@ async function getTOTPSecretFromAuthService() {
 	}
 
 	storage.JWT_SECRET = jwt_secret;
-	console.log("set jwt secret from auth service", jwt_secret);
+	console.log("[APP] JWT_SECRET recieved from auth service:", jwt_secret);
 }
 
 async function sleep(ms: number): Promise<void> {

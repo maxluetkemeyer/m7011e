@@ -20,7 +20,5 @@ function readJWTSecret() {
 	if (!jwt_secret) {
 		throw new Error("Please set environment variable AUTH_JWT_SECRET");
 	}
-	console.log(jwt_secret);
-
 	StorageSingleton.instance.JWT_SECRET = jwt_secret;
 }
