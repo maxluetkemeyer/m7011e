@@ -31,7 +31,7 @@ npx prisma generate
   - Change google configuration
   - Decide, whether the auth routes should be included in the normal app server
 
-- Place your service_account_key.json from your Google Cloud project in the folder "privat/service_account_key.json"
+- Place your service_account_key.json from your Google Cloud project in the folder "private/service_account_key.json"
 
 - Start the dev runtime
 ```bash
@@ -50,7 +50,7 @@ npx prisma generate
 - Adjust the compose.yml file
   - Edit the .env file with your value. An example can be found in .env.example
   - Adjust the locations for your SSL certificates at the proxy service
-  - Place your service_account_key.json from your Google Cloud project in the folder "privat/service_account_key.json"
+  - Place your service_account_key.json from your Google Cloud project in the folder "private/service_account_key.json"
 - Start the Docker composition
 ```bash
 docker compose up --build -d
