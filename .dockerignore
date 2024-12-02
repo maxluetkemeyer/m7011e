@@ -3,6 +3,7 @@
 coverage
 node_modules
 privat
+private
 uploads
 .env
 .env.example

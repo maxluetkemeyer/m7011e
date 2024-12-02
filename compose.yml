@@ -23,6 +23,8 @@ services:
             mode: replicated
             replicas: 10
         env_file: ".env"
+        volumes:
+            - ./private:/srv/private
 
     auth:
         build:

@@ -10,7 +10,7 @@ export const GOOGLE_URL_PREFIX = "https://storage.googleapis.com/ltu_dynamicweb_
 // Creates a client
 const storage = new Storage({
 	projectId,
-	keyFilename: "./privat/service_account_key.json",
+	keyFilename: "./private/service_account_key.json",
 });
 
 export async function uploadFromMemory(destination: string, contents: SaveData) {
