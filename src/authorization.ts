@@ -6,6 +6,11 @@ export function groupAuthorization(allowedGroupLevel: string) {
 		const jwtPayload = res.locals.my_jwtPayload as MyJWT;
 		console.log(jwtPayload);
 
+		if(!jwtPayload) {
+			res.status(404).render("404", { message: "You are not allowed to see this." });
+			return;
+		}
+
 		const userGroups = jwtPayload.groups;
 		//const isAllowed = userGroups.some((group) => allowedGroups.includes(group));
 		let isAllowed = false;
