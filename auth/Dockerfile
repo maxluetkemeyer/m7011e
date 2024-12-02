@@ -33,6 +33,7 @@ COPY --from=build /srv/src ./src
 
 # Expose the port that the application listens on.
 EXPOSE 3001
+EXPOSE 4001
 
 # Run the application.
 CMD ["node", "dist/auth/main.js"]

@@ -14,12 +14,6 @@ appInternal.use((req, _, next) => {
 	next();
 });
 
-export const totp_secret = process.env.AUTH_TOTP_SECRET;
-if (!totp_secret) {
-	throw new Error("Please set environment variable AUTH_TOTP_SECRET");
-}
-export const TOTP_SECRET = totp_secret;
-
 // Route every other request to /[somtheting] to the importer router
 // appInternal.use("/auth/login", routerLogin);
 

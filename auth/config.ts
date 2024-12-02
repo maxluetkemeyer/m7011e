@@ -1,7 +1,9 @@
 import "dotenv/config";
+import { StorageSingleton } from "../src/store.js";
 
 export function configure() {
 	checkNodeVersion();
+	readTOTPSecret();
 }
 
 function checkNodeVersion() {
@@ -11,4 +13,14 @@ function checkNodeVersion() {
 		console.debug(major, minor, patch);
 		throw new Error("Node.js version 23 or higher is required.");
 	}
+}
+
+function readTOTPSecret() {
+	const totp_secret = process.env.AUTH_TOTP_SECRET;
+	if (!totp_secret) {
+		throw new Error("Please set environment variable AUTH_TOTP_SECRET");
+	}
+	console.log(totp_secret);
+
+	StorageSingleton.instance.JWT_SECRET = totp_secret;
 }

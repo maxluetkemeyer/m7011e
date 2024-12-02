@@ -1,8 +1,9 @@
-import { app } from "./app.js";
-import { appInternal } from "./app_internal.js";
 import { configure } from "./config.js";
 
 configure();
+
+const app = (await import("./app.js")).app;
+const appInternal = (await import("./app_internal.js")).appInternal;
 
 const AUTH_PORT = process.env.AUTH_PORT;
 const AUTH_PORT_INTERNAL = process.env.AUTH_PORT_INTERNAL;
