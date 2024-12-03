@@ -21,6 +21,16 @@ We have a version of our project running publicly:
 ```bash
 nvm use 23.1.0
 ```
+- Apply the basic database schema to your database
+  - A postgres file can be found under /prisma/database.sql
+  - You can open it with the SQL notebook extension and apply it to the database
+  - The SQL notebook must be connected to the PostgreSQL Database, which is created by the dev container setup
+  - The credentials are:
+    - host: db
+    - port: 5432
+    - user: postgres
+    - database: postgres
+    - driver: postgres
 
 - Generate the Database Client for the ORM Prisma
 ```bash

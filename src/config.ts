@@ -20,7 +20,7 @@ async function readJWTSecret() {
 	const USE_EXTRA_AUTH_SERVICE = process.env.USE_EXTRA_AUTH_SERVICE;
 
 	if (USE_EXTRA_AUTH_SERVICE === "True") {
-		await getTOTPSecretFromAuthService();
+		await getJWTSecretFromAuthService();
 	} else {
 		const jwt_secret = process.env.AUTH_JWT_SECRET;
 		if (!jwt_secret) {
@@ -32,7 +32,7 @@ async function readJWTSecret() {
 }
 
 
-async function getTOTPSecretFromAuthService() {
+async function getJWTSecretFromAuthService() {
 	const storage = StorageSingleton.instance;
 	const authServiceUrl = process.env.AUTH_SERVICE_URL;
 	const authServicePort = process.env.AUTH_SERVICE_PORT;
@@ -47,7 +47,7 @@ async function getTOTPSecretFromAuthService() {
 	if(!response){
 		console.log("TOTP response failed, trying again...", response);
 		await sleep(2000);
-		await getTOTPSecretFromAuthService();
+		await getJWTSecretFromAuthService();
 		return;
 	}
 
@@ -57,7 +57,7 @@ async function getTOTPSecretFromAuthService() {
 	if (!jwt_secret || jwt_secret === "") {
 		console.log("Could not get jwt secret, trying again...", jwt_secret, responseJson);
 		await sleep(2000);
-		await getTOTPSecretFromAuthService();
+		await getJWTSecretFromAuthService();
 		return;
 	}
 
