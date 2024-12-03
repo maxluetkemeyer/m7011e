@@ -75,6 +75,9 @@ docker compose logs --follow
   - email: mail@invalid
   - password: hello123
 
+## API Documentation
+
+The API is documented [here](https://github.com/maxluetkemeyer/m7011e/blob/main/api_description.md)
 
 ## Testing
 - Run Unit tests
