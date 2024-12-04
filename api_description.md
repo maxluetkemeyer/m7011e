@@ -12,15 +12,11 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>GET</code> <code><b>/article_tag</b></code> <code> (gets all article tags)</code></summary>
 
-##### Parameters
-
-> None
-
 ##### Responses
 
 > | http code     | content-type                      | response                                                            |
 > |---------------|-----------------------------------|---------------------------------------------------------------------|
-> | `200`         | `application/json`                | returns list of article tags                                                |
+> | `200`         | `application/json`                | returns list of article tags                                        |
 > | `400`         | `application/json`                | { message: "Invalid request" }                                      |
 
 </details>
@@ -68,6 +64,8 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 
 </details>  
 
+<details><summary><code>NO UPDATE</code> <code> (there is only the primary key!)</code></summary></details>        
+
 <details>
  <summary><code>DELETE</code> <code><b>/article_tag/:articleId/:tagId</b></code> <code> (deletes an article tag)</code></summary>
 
@@ -97,10 +95,6 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>GET</code> <code><b>/article</b></code> <code> (gets all articles)</code></summary>
 
-##### Parameters
-
-> None
-
 ##### Responses
 
 > | http code     | content-type                      | response                                                            |
@@ -115,7 +109,9 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 
 ##### Parameters
 
-> None
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `id`              |  required | int            | specific article id                 |
 
 ##### Responses
 
@@ -152,6 +148,12 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>PUT</code> <code><b>/article/:id</b></code> <code> (updates an existing article)</code></summary>
 
+ ##### Parameters
+
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `id`              |  required | int            | specific article id                 |
+
 ##### Request Body
 
 > | name              |  type     | data type      | description                         |
@@ -175,14 +177,12 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>DELETE</code> <code><b>/article/:id</b></code> <code> (deletes an article using ID)</code></summary>
 
-##### Request Body
+ ##### Parameters
 
 > | name              |  type     | data type      | description                         |
 > |-------------------|-----------|----------------|-------------------------------------|
-> | `title`           |  required | String         | article title                       |
-> | `content`         |  required | String         | article body                        |
-> | `image_url`       |  required | String         | article image link                  |
-> | `user_id`         |  required | Int            | author's user ID                    |
+> | `id`              |  required | int            | specific article id                 |
+
 
 
 ##### Responses
@@ -201,9 +201,6 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>GET</code> <code><b>/setting</b></code> <code> (gets all settings)</code></summary>
 
-##### Parameters
-
-> None
 
 ##### Responses
 
@@ -221,7 +218,9 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 
 ##### Parameters
 
-> None
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `userid`          |  required | int            | specific user id                    |
 
 ##### Responses
 
@@ -257,6 +256,12 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>PUT</code> <code><b>/setting/:userid</b></code> <code> (updates an existing setting)</code></summary>
 
+##### Parameters
+
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `userid`          |  required | int            | specific user id                    |
+
 ##### Request Body
 
 > | name              |  type     | data type      | description                         |
@@ -278,7 +283,9 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 
 ##### Parameters
 
-> None
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `userid`          |  required | int            | specific user id                    |
 
 ##### Responses
 
@@ -295,9 +302,6 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>GET</code> <code><b>/tag</b></code> <code> (gets all tags)</code></summary>
 
-##### Parameters
-
-> None
 
 ##### Responses
 
@@ -313,7 +317,9 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 
 ##### Parameters
 
-> None
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `id`              |  required | int            | specific tag id                     |
 
 ##### Responses
 
@@ -347,6 +353,12 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>PUT</code> <code><b>/tag/:id</b></code> <code> (updates an existing tag)</code></summary>
 
+##### Parameters
+
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `id`              |  required | int            | specific tag id                     |
+
 ##### Request Body
 
 > | name              |  type     | data type      | description                         |
@@ -367,12 +379,11 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>DELETE</code> <code><b>/tag/:id</b></code> <code> (deletes a tag)</code></summary>
 
-##### Request Body
+##### Parameters
 
 > | name              |  type     | data type      | description                         |
 > |-------------------|-----------|----------------|-------------------------------------|
-> | `name`            |  required | String         | tag name                            |
-> | `color`           |  required | String         | tag color                           |
+> | `id`              |  required | int            | specific tag id                     |
 
 ##### Responses
 
@@ -390,9 +401,6 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>GET</code> <code><b>/user_group_member</b></code> <code> (gets all user group members)</code></summary>
 
-##### Parameters
-
-> None
 
 ##### Responses
 
@@ -411,7 +419,7 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 
 > | name              |  type     | data type      | description                         |
 > |-------------------|-----------|----------------|-------------------------------------|
-> | `groupId          |  required | Int            | role group ID                       |
+> | `groupId`         |  required | Int            | role group ID                       |
 > | `userId`          |  required | Int            | user ID                             |
 
 
@@ -432,7 +440,7 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 
 > | name              |  type     | data type      | description                         |
 > |-------------------|-----------|----------------|-------------------------------------|
-> | `group_id         |  required | Int            | role group ID                       |
+> | `group_id`        |  required | Int            | role group ID                       |
 > | `user_id`         |  required | Int            | user ID                             |
 
 ##### Responses
@@ -448,20 +456,22 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details><summary><code>NO UPDATE</code> <code> (there is only the primary key!)</code></summary></details>        
 
 <details>
- <summary><code>DELETE</code> <code><b>/tag/:id</b></code> <code> (deletes a tag)</code></summary>
+ <summary><code>DELETE</code> <code><b>/user_group_member/:groupId/:userId</b></code> <code> (deletes a group member)</code></summary>
 
-##### Request Body
+
+##### Parameters
 
 > | name              |  type     | data type      | description                         |
 > |-------------------|-----------|----------------|-------------------------------------|
-> | `name`            |  required | String         | tag name                            |
-> | `color`           |  required | String         | tag color                           |
+> | `groupId`         |  required | Int            | role group ID                       |
+> | `userId`          |  required | Int            | user ID                             |
+
 
 ##### Responses
 
 > | http code     | content-type                      | response                                                            |
 > |---------------|-----------------------------------|---------------------------------------------------------------------|
-> | `200`         | `application/json`                | returns the deleted tag                                             |
+> | `200`         | `application/json`                | returns the deleted group member                                    |
 > | `400`         | `application/json`                | { message: "Invalid request" }                                      |
 
  **Authorization**: Requires `admin` role. 
@@ -477,9 +487,6 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>GET</code> <code><b>/user_group</b></code> <code> (gets all user groups)</code></summary>
 
-##### Parameters
-
-> None
 
 ##### Responses
 
@@ -579,9 +586,6 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 <details>
  <summary><code>GET</code> <code><b>/users</b></code> <code> (gets all users)</code></summary>
 
-##### Parameters
-
-> None
 
 ##### Responses
 
@@ -636,6 +640,12 @@ This API provides endpoints for managing articles, tags, users, user groups, use
 
 <details>
  <summary><code>PUT</code> <code><b>/user/:id</b></code> <code> (updates an existing user)</code></summary>
+
+##### Parameters
+
+> | name              |  type     | data type      | description                         |
+> |-------------------|-----------|----------------|-------------------------------------|
+> | `id`              |  required | Int            | user ID                             |
 
 ##### Request Body
 > | name              |  type     | data type      | description                         |
